@@ -13,6 +13,7 @@ import {
   FiltroItensPainelDto,
   FiltroItensPublicoDto,
 } from './dto/item.dto.js';
+import { AtributoEntrada, substituirAtributos } from './atributos.js';
 import { includeCompleto, paraCard, selectCard } from './itens.selects.js';
 
 @Injectable()
@@ -131,16 +132,21 @@ export class ItensService {
   async criar(dto: CriarItemDto) {
     await this.garantirCategoria(dto.categoriaId);
     const slug = await this.gerarSlug(dto.titulo);
-    const item = await this.prisma.item.create({
-      data: {
-        titulo: dto.titulo,
-        slug,
-        descricao: dto.descricao ?? '',
-        preco: dto.preco ?? null,
-        destaque: dto.destaque ?? false,
-        ativo: dto.ativo ?? true,
-        categoriaId: dto.categoriaId,
-      },
+    const item = await this.prisma.$transaction(async (tx) => {
+      const criado = await tx.item.create({
+        data: {
+          titulo: dto.titulo,
+          slug,
+          descricao: dto.descricao ?? '',
+          preco: dto.preco ?? null,
+          destaque: dto.destaque ?? false,
+          ativo: dto.ativo ?? true,
+          categoriaId: dto.categoriaId,
+        },
+      });
+      if (dto.atributos)
+        await substituirAtributos(tx, criado.id, dto.atributos);
+      return criado;
     });
     return this.porId(item.id);
   }
@@ -152,18 +158,30 @@ export class ItensService {
   async atualizar(id: number, dto: AtualizarItemDto) {
     const anterior = await this.porId(id);
     await this.garantirCategoria(dto.categoriaId);
-    await this.prisma.item.update({
-      where: { id },
-      data: {
-        titulo: dto.titulo,
-        descricao: dto.descricao,
-        preco: dto.preco,
-        destaque: dto.destaque,
-        ativo: dto.ativo,
-        categoriaId: dto.categoriaId,
-      },
+    await this.prisma.$transaction(async (tx) => {
+      await tx.item.update({
+        where: { id },
+        data: {
+          titulo: dto.titulo,
+          descricao: dto.descricao,
+          preco: dto.preco,
+          destaque: dto.destaque,
+          ativo: dto.ativo,
+          categoriaId: dto.categoriaId,
+        },
+      });
+      if (dto.atributos) await substituirAtributos(tx, id, dto.atributos);
     });
     return { anterior, atual: await this.porId(id) };
+  }
+
+  /** Substitui a lista inteira de atributos numa única transação. */
+  async salvarAtributos(id: number, atributos: AtributoEntrada[]) {
+    const item = await this.porId(id);
+    await this.prisma.$transaction((tx) =>
+      substituirAtributos(tx, id, atributos),
+    );
+    return { item, atributos: (await this.porId(id)).atributos };
   }
 
   async remover(id: number) {

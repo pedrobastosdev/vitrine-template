@@ -8,6 +8,7 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Put,
   Query,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
@@ -18,6 +19,7 @@ import {
   FiltroItensPainelDto,
   FiltroItensPublicoDto,
 } from './dto/item.dto.js';
+import { SalvarAtributosDto } from './dto/atributo.dto.js';
 import { ItensService } from './itens.service.js';
 
 @ApiTags('itens')
@@ -77,6 +79,16 @@ export class ItensController {
     @Body() dto: AtualizarItemDto,
   ) {
     return (await this.itens.atualizar(id, dto)).atual;
+  }
+
+  @Put(':id/atributos')
+  @Protegido()
+  @ApiOperation({ summary: 'Substitui a lista inteira de atributos do item' })
+  async salvarAtributos(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() dto: SalvarAtributosDto,
+  ) {
+    return (await this.itens.salvarAtributos(id, dto.atributos)).atributos;
   }
 
   @Delete(':id')
