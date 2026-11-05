@@ -1,0 +1,81 @@
+# Blueprint do Render: uma API por demo, as duas a partir deste repositório.
+# Variáveis com "sync: false" são preenchidas no painel do Render (nunca no Git).
+# O seed NÃO roda aqui: ele apaga e recria os dados (ver DEPLOY.md).
+
+services:
+  - type: web
+    name: vitrine-api-imobiliaria
+    runtime: node
+    plan: free
+    region: oregon
+    rootDir: api
+    # O plano free não tem preDeployCommand, então as migrations rodam no build.
+    buildCommand: npm ci --include=dev && npx prisma migrate deploy && npm run build
+    startCommand: npm run start:prod
+    healthCheckPath: /saude
+    autoDeploy: true
+    envVars:
+      - key: NODE_VERSION
+        value: "24"
+      - key: DATABASE_URL
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: CORS_ORIGINS
+        sync: false
+      - key: WEB_URL
+        sync: false
+      - key: REVALIDATE_SECRET
+        sync: false
+      - key: CLOUDINARY_CLOUD_NAME
+        sync: false
+      - key: CLOUDINARY_API_KEY
+        sync: false
+      - key: CLOUDINARY_API_SECRET
+        sync: false
+      - key: CLOUDINARY_FOLDER
+        value: vitrine/imobiliaria
+      - key: LEADS_LIMITE
+        value: "5"
+      - key: LEADS_JANELA_SEGUNDOS
+        value: "600"
+
+  - type: web
+    name: vitrine-api-guincho
+    runtime: node
+    plan: free
+    region: oregon
+    rootDir: api
+    buildCommand: npm ci --include=dev && npx prisma migrate deploy && npm run build
+    startCommand: npm run start:prod
+    healthCheckPath: /saude
+    autoDeploy: true
+    envVars:
+      - key: NODE_VERSION
+        value: "24"
+      - key: DATABASE_URL
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: CORS_ORIGINS
+        sync: false
+      - key: WEB_URL
+        sync: false
+      - key: REVALIDATE_SECRET
+        sync: false
+      - key: CLOUDINARY_CLOUD_NAME
+        sync: false
+      - key: CLOUDINARY_API_KEY
+        sync: false
+      - key: CLOUDINARY_API_SECRET
+        sync: false
+      - key: CLOUDINARY_FOLDER
+        value: vitrine/guincho
+      - key: LEADS_LIMITE
+        value: "5"
+      - key: LEADS_JANELA_SEGUNDOS
+        value: "600"
