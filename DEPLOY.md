@@ -78,7 +78,7 @@ Para resetar uma demo pública (alguém bagunçou os dados), é só rodar o seed
 | `DATABASE_URL` | URL do Neon da imobiliária | URL do Neon do guincho |
 | `CLOUDINARY_CLOUD_NAME` / `API_KEY` / `API_SECRET` | da sua conta | da sua conta |
 | `REVALIDATE_SECRET` | segredo da imobiliária (passo 0) | segredo do guincho |
-| `WEB_URL` | `https://vitrine-imobiliaria.vercel.app` | `https://vitrine-guincho.vercel.app` |
+| `WEB_URL` | `https://vitrine-imobiliaria.vercel.app` | `https://vitrine-guincho-psi.vercel.app` |
 | `CORS_ORIGINS` | igual ao `WEB_URL` (mais domínios separados por vírgula) | igual ao `WEB_URL` |
 
 Se você ainda não sabe a URL da Vercel, deixe `WEB_URL` e `CORS_ORIGINS` para o passo 6.
@@ -103,7 +103,7 @@ Crie dois projetos importando o mesmo repositório:
 | Variável | Imobiliária | Guincho |
 | --- | --- | --- |
 | `NEXT_PUBLIC_API_URL` | `https://vitrine-api-imobiliaria.onrender.com` | `https://vitrine-api-guincho.onrender.com` |
-| `NEXT_PUBLIC_SITE_URL` | `https://vitrine-imobiliaria.vercel.app` | `https://vitrine-guincho.vercel.app` |
+| `NEXT_PUBLIC_SITE_URL` | `https://vitrine-imobiliaria.vercel.app` | `https://vitrine-guincho-psi.vercel.app` |
 | `REVALIDATE_SECRET` | segredo da imobiliária | segredo do guincho |
 
 As variáveis `NEXT_PUBLIC_*` entram no build. Se mudar alguma, faça um **Redeploy**.

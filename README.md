@@ -8,16 +8,33 @@ atualiza na hora. O contato chega pelo WhatsApp ou por um formulário que vira l
 
 | Demo | Site | Painel | API (Swagger) |
 | --- | --- | --- | --- |
-| 🏠 Imobiliária *Morada Clara* | `https://vitrine-imobiliaria.vercel.app` <!-- TODO: link real --> | `/painel/login` | `https://vitrine-api-imobiliaria.onrender.com/docs` <!-- TODO --> |
-| 🚛 Guincho *Reboque Ágil 24h* | `https://vitrine-guincho.vercel.app` <!-- TODO: link real --> | `/painel/login` | `https://vitrine-api-guincho.onrender.com/docs` <!-- TODO --> |
+| 🏠 Imobiliária *Morada Clara* | [vitrine-imobiliaria.vercel.app](https://vitrine-imobiliaria.vercel.app/) | [/painel](https://vitrine-imobiliaria.vercel.app/painel/login) | [Swagger](https://vitrine-api-imobiliaria.onrender.com/docs) |
+| 🚛 Guincho *Reboque Ágil 24h* | [vitrine-guincho-psi.vercel.app](https://vitrine-guincho-psi.vercel.app/) | [/painel](https://vitrine-guincho-psi.vercel.app/painel/login) | [Swagger](https://vitrine-api-guincho.onrender.com/docs) |
 
 **Login das demos:** `admin@demo.com` / `demo1234` (os dados voltam ao original quando o seed roda de novo).
 
 > As duas demos rodam o **mesmo código**: só mudam a configuração do negócio e o seed.
 > A API fica no plano gratuito do Render e pode levar ~50 s para acordar no primeiro acesso.
 
-<!-- TODO: GIF — editar um item no painel e ver a mudança aparecer no site -->
-> 📽️ **[GIF aqui]** editando um item no painel e a mudança aparecendo no site na hora.
+### Do painel para o site, na hora
+
+![Editando o título de um imóvel no painel e a mudança aparecendo na página do site](docs/painel-site.gif)
+
+### As duas demos
+
+| [Imobiliária](https://vitrine-imobiliaria.vercel.app/) | [Guincho](https://vitrine-guincho-psi.vercel.app/) |
+| --- | --- |
+| [![Home da demo de imobiliária](docs/imobiliaria-desktop.jpg)](https://vitrine-imobiliaria.vercel.app/) | [![Home da demo de guincho](docs/guincho-desktop.jpg)](https://vitrine-guincho-psi.vercel.app/) |
+
+No celular: home e página do item de cada demo.
+
+![Home e página do item das duas demos no celular](docs/demos-mobile.jpg)
+
+### Painel
+
+![Edição de item no painel: atributos, fotos com capa e ordenação](docs/painel-item.jpg)
+
+![Visão geral do painel no desktop e lista de imóveis e leads no celular](docs/painel-visao-geral-e-celular.jpg)
 
 ### Lighthouse (mobile)
 
