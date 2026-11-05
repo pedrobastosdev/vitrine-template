@@ -6,6 +6,7 @@ import {
 import { Prisma } from '../generated/prisma/client.js';
 import { paginar } from '../comum/paginacao.dto.js';
 import { gerarSlugUnico } from '../comum/slug.js';
+import { CloudinaryService } from '../imagens/cloudinary.service.js';
 import { PrismaService } from '../prisma/prisma.service.js';
 import {
   AtualizarItemDto,
@@ -18,7 +19,10 @@ import { includeCompleto, paraCard, selectCard } from './itens.selects.js';
 
 @Injectable()
 export class ItensService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly cloudinary: CloudinaryService,
+  ) {}
 
   // ---------- Público: sempre filtra ativo = true ----------
 
@@ -186,7 +190,12 @@ export class ItensService {
 
   async remover(id: number) {
     const item = await this.porId(id);
+    const imagens = await this.prisma.imagemItem.findMany({
+      where: { itemId: id },
+      select: { publicId: true },
+    });
     await this.prisma.item.delete({ where: { id } });
+    await this.cloudinary.removerVarias(imagens.map((i) => i.publicId));
     return item;
   }
 }
