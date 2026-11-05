@@ -38,6 +38,8 @@ export function contraste(a: string, b: string): number {
 }
 
 export const BRANCO = '#ffffff';
+/** Fundo do rodapé. */
+export const FUNDO_ESCURO = '#0f1115';
 // Preto profundo o bastante para que qualquer cor alcance 4.5:1 com branco ou com ele
 export const QUASE_PRETO = '#050505';
 
@@ -79,6 +81,7 @@ export function variaveisDoTema({ corPrimaria, corSecundaria }: CoresTema) {
     '--marca': corPrimaria,
     '--marca-contraste': corDoTexto(corPrimaria),
     '--marca-forte': ajustarParaContraste(corPrimaria),
+    '--marca-clara': ajustarParaContraste(corPrimaria, FUNDO_ESCURO),
     '--marca-suave': misturar(corPrimaria, BRANCO, 0.9),
     '--marca-escura': misturar(corPrimaria, QUASE_PRETO, 0.55),
     '--destaque': corSecundaria,

@@ -18,12 +18,10 @@ export async function Rodape({ negocio }: { negocio: Negocio }) {
   const telefoneWhats = negocio.whatsapp.replace(/^55/, '').replace(/(\d{2})(\d{4,5})(\d{4})$/, '($1) $2-$3');
 
   return (
-    <footer className="mt-24 bg-destaque text-destaque-contraste">
+    <footer className="mt-24 bg-[#0f1115] text-white">
       <div className="mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-6 md:grid-cols-2 lg:grid-cols-4 lg:px-8">
         <div className="space-y-4 lg:col-span-1">
-          <div className="[&_span]:!text-destaque-contraste">
-            <Marca negocio={negocio} />
-          </div>
+          <Marca negocio={negocio} claro />
           {negocio.slogan && <p className="max-w-xs text-sm opacity-80">{negocio.slogan}</p>}
           {negocio.instagram && (
             <a
@@ -38,7 +36,7 @@ export async function Rodape({ negocio }: { negocio: Negocio }) {
         </div>
 
         <nav aria-label="Rodapé" className="space-y-4">
-          <h2 className="font-heading text-sm font-bold tracking-wider uppercase opacity-70">Navegação</h2>
+          <h2 className="font-heading text-sm font-bold tracking-wider text-marca-clara uppercase">Navegação</h2>
           <ul className="space-y-2.5 text-sm">
             <li><Link className="opacity-85 hover:opacity-100 hover:underline" href="/">Início</Link></li>
             <li><Link className="opacity-85 hover:opacity-100 hover:underline" href="/itens">{negocio.rotuloItens}</Link></li>
@@ -48,7 +46,7 @@ export async function Rodape({ negocio }: { negocio: Negocio }) {
 
         {categorias.ok && categorias.dados.length > 0 && (
           <div className="space-y-4">
-            <h2 className="font-heading text-sm font-bold tracking-wider uppercase opacity-70">Categorias</h2>
+            <h2 className="font-heading text-sm font-bold tracking-wider text-marca-clara uppercase">Categorias</h2>
             <ul className="space-y-2.5 text-sm">
               {categorias.dados.map((c) => (
                 <li key={c.id}>
@@ -62,7 +60,7 @@ export async function Rodape({ negocio }: { negocio: Negocio }) {
         )}
 
         <div className="space-y-4">
-          <h2 className="font-heading text-sm font-bold tracking-wider uppercase opacity-70">Fale com a gente</h2>
+          <h2 className="font-heading text-sm font-bold tracking-wider text-marca-clara uppercase">Fale com a gente</h2>
           <ul className="space-y-3 text-sm">
             {negocio.whatsapp && (
               <li>
@@ -97,7 +95,7 @@ export async function Rodape({ negocio }: { negocio: Negocio }) {
           </ul>
         </div>
       </div>
-      <div className="border-t border-current/10">
+      <div className="border-t border-white/10">
         <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-6 text-xs opacity-70 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
           <p>© {ano} {negocio.nome}. Todos os direitos reservados.</p>
           <p>Site com painel próprio</p>

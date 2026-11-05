@@ -27,6 +27,7 @@ describe('cores do tema', () => {
     (cor) => {
       expect(contraste(cor, corDoTexto(cor))).toBeGreaterThanOrEqual(4.5);
       expect(contraste(ajustarParaContraste(cor), '#ffffff')).toBeGreaterThanOrEqual(4.5);
+      expect(contraste(ajustarParaContraste(cor, '#0f1115'), '#0f1115')).toBeGreaterThanOrEqual(4.5);
     },
   );
 

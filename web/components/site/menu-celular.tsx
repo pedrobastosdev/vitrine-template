@@ -2,12 +2,10 @@
 
 import { Menu, X } from 'lucide-react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 export function MenuCelular({ links }: { links: { href: string; rotulo: string }[] }) {
   const [aberto, setAberto] = useState(false);
-  const caminho = usePathname();
 
   useEffect(() => {
     if (!aberto) return;
@@ -40,8 +38,7 @@ export function MenuCelular({ links }: { links: { href: string; rotulo: string }
                 <Link
                   href={l.href}
                   onClick={() => setAberto(false)}
-                  aria-current={caminho === l.href ? 'page' : undefined}
-                  className="block rounded-xl px-4 py-3.5 text-base font-medium hover:bg-marca-suave aria-[current=page]:bg-marca-suave aria-[current=page]:text-marca-forte"
+                  className="block rounded-xl px-4 py-3.5 text-base font-medium hover:bg-marca-suave"
                 >
                   {l.rotulo}
                 </Link>
