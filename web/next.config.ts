@@ -2,8 +2,11 @@ import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   cacheComponents: true,
+  // As páginas vêm do cache, então entregar os metadados no <head> para todos não custa nada.
+  htmlLimitedBots: /.*/,
   partialPrefetching: true,
   images: {
+    qualities: [50, 75],
     // As fotos já chegam redimensionadas pelo CDN de origem (ver lib/imagem-loader.ts)
     loader: 'custom',
     loaderFile: './lib/imagem-loader.ts',

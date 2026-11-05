@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import { Fraunces, Inter, Plus_Jakarta_Sans } from 'next/font/google';
+import { preconnect } from 'react-dom';
 import { Toaster } from '@/components/ui/sonner';
 import { SITE_URL } from '@/lib/config';
 import { variaveisDoTema } from '@/lib/cor';
@@ -46,6 +47,9 @@ export async function generateViewport(): Promise<Viewport> {
 }
 
 export default async function RootLayout({ children }: LayoutProps<'/'>) {
+  // Adianta a conexão com os CDNs das fotos (a capa costuma ser o LCP).
+  preconnect('https://res.cloudinary.com');
+  preconnect('https://images.unsplash.com');
   const { negocio } = await negocioOuPadrao();
   return (
     <html
