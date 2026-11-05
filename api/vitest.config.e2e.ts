@@ -1,5 +1,6 @@
 import swc from 'unplugin-swc';
 import { defineConfig } from 'vitest/config';
+import { DATABASE_URL_TEST } from './test/db-url.js';
 
 export default defineConfig({
   plugins: [swc.vite({ module: { type: 'es6' } })],
@@ -10,11 +11,10 @@ export default defineConfig({
     include: ['test/**/*.e2e-spec.ts'],
     // Um arquivo por vez: todos compartilham o mesmo banco de teste
     fileParallelism: false,
+    globalSetup: ['./test/setup-global.ts'],
     hookTimeout: 30000,
     env: {
-      DATABASE_URL:
-        process.env.DATABASE_URL_TEST ??
-        'postgresql://vitrine:vitrine@localhost:5441/vitrine_test',
+      DATABASE_URL: DATABASE_URL_TEST,
       JWT_SECRET: 'segredo-de-teste',
       JWT_EXPIRES_IN: '1h',
       CORS_ORIGINS: 'http://localhost:3000',
