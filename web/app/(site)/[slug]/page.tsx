@@ -2,7 +2,6 @@ import { ChevronRight, MessageSquare } from 'lucide-react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { Suspense } from 'react';
 import { GradeItens } from '@/components/site/card-item';
 import { Compartilhar } from '@/components/site/compartilhar';
 import { AvisoIndisponivel } from '@/components/site/estados';
@@ -130,15 +129,15 @@ async function Detalhe({ params }: { params: PageProps<'/[slug]'>['params'] }) {
                 {item.atributos.map((a) => (
                   <div
                     key={a.id ?? a.nome}
-                    className={`flex items-start gap-3 rounded-2xl bg-white p-4 ring-1 ring-black/5 ${a.valor.length > 12 ? 'col-span-2' : ''}`}
+                    className={`relative min-h-18 rounded-2xl bg-white py-4 pr-4 pl-17 ring-1 ring-black/5 ${a.valor.length > 12 ? 'col-span-2' : ''}`}
                   >
-                    <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-marca-suave text-marca-forte">
-                      <IconeAtributo nome={a.nome} className="size-5" />
-                    </span>
-                    <div className="min-w-0">
-                      <dt className="text-xs font-medium text-muted-foreground">{a.nome}</dt>
-                      <dd className="font-semibold break-words text-foreground">{a.valor}</dd>
-                    </div>
+                    <dt className="text-xs font-medium text-muted-foreground">
+                      <span aria-hidden className="absolute top-4 left-4 grid size-10 place-items-center rounded-xl bg-marca-suave text-marca-forte">
+                        <IconeAtributo nome={a.nome} className="size-5" />
+                      </span>
+                      {a.nome}
+                    </dt>
+                    <dd className="font-semibold break-words text-foreground">{a.valor}</dd>
                   </div>
                 ))}
               </dl>
@@ -179,26 +178,6 @@ async function Detalhe({ params }: { params: PageProps<'/[slug]'>['params'] }) {
   );
 }
 
-function DetalheSkeleton() {
-  return (
-    <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 lg:grid-cols-12 lg:px-8" role="status" aria-label="Carregando">
-      <div className="aspect-[4/3] animate-pulse rounded-3xl bg-muted lg:col-span-7" />
-      <div className="space-y-4 lg:col-span-5">
-        <div className="h-6 w-24 animate-pulse rounded-full bg-muted" />
-        <div className="h-10 w-full animate-pulse rounded bg-muted" />
-        <div className="h-10 w-1/2 animate-pulse rounded bg-muted" />
-        <div className="grid grid-cols-2 gap-3 pt-4">
-          {[0, 1, 2, 3].map((i) => <div key={i} className="h-20 animate-pulse rounded-2xl bg-muted" />)}
-        </div>
-      </div>
-    </div>
-  );
-}
-
 export default function PaginaItem({ params }: PageProps<'/[slug]'>) {
-  return (
-    <Suspense fallback={<DetalheSkeleton />}>
-      <Detalhe params={params} />
-    </Suspense>
-  );
+  return <Detalhe params={params} />;
 }

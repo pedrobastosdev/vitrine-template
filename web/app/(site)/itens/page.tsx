@@ -64,6 +64,7 @@ async function Listagem({ searchParams, rotulo }: { searchParams: PageProps<'/it
         </nav>
       )}
 
+      <h2 className="sr-only">Resultados</h2>
       <p className="mt-6 mb-6 text-sm text-muted-foreground" aria-live="polite">
         {total} {total === 1 ? 'resultado' : 'resultados'}
       </p>
