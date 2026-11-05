@@ -98,7 +98,7 @@ export async function executarSeed(nome: string, dados: DadosSeed) {
     const itens = new Map<string, number>();
     for (const item of dados.itens) {
       const slug = slugify(item.titulo);
-      console.log(`  • ${item.titulo} (${item.fotos.length} fotos)`);
+      console.log(`  • ${item.titulo} (${item.fotos.length} ${item.fotos.length === 1 ? 'foto' : 'fotos'})`);
       const imagens = await Promise.all(
         item.fotos.map((f, i) => enviarFoto(f, `${slug}-${i + 1}`)),
       );
