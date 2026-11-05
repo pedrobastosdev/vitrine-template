@@ -15,6 +15,7 @@
   --color-marca-contraste: var(--marca-contraste);
   --color-marca-forte: var(--marca-forte);
   --color-marca-suave: var(--marca-suave);
+  --color-marca-clara: var(--marca-clara);
   --color-marca-escura: var(--marca-escura);
   --color-destaque: var(--destaque);
   --color-destaque-contraste: var(--destaque-contraste);
@@ -65,13 +66,14 @@
   --marca-contraste: #ffffff;
   --marca-forte: #1d4ed8;
   --marca-suave: #e8edfb;
+  --marca-clara: #93b4ff;
   --marca-escura: #0f1f4d;
   --destaque: #0f172a;
   --destaque-contraste: #ffffff;
   --destaque-forte: #0f172a;
   --font-titulo: var(--font-titulo-sans);
 
-  --background: oklch(1 0 0);
+  --background: oklch(0.985 0.003 95);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
@@ -153,9 +155,6 @@
     @apply font-sans;
     scroll-behavior: smooth;
   }
-  html[data-titulo='serifa'] {
-    --font-titulo: var(--font-titulo-serifa);
-  }
   h1, h2, h3 {
     font-family: var(--font-heading);
     text-wrap: balance;
@@ -172,6 +171,11 @@
       scroll-behavior: auto !important;
     }
   }
+}
+
+/* Fora do @layer para vencer o padrão definido em :root */
+html[data-titulo='serifa'] {
+  --font-titulo: var(--font-titulo-serifa);
 }
 
 @keyframes surgir {
