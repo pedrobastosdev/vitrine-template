@@ -1,0 +1,10 @@
+.env
+.env.local
+PLANO.md
+CLAUDE.md
+ESTUDO.md
+.claude/
+node_modules/
+dist/
+.next/
+coverage/
