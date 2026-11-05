@@ -24,3 +24,12 @@ describe('linkWhatsApp', () => {
     );
   });
 });
+
+describe('mascararTelefone', () => {
+  it('formata fixo e celular', async () => {
+    const { mascararTelefone } = await import('./formato');
+    expect(mascararTelefone('4830000000')).toBe('(48) 3000-0000');
+    expect(mascararTelefone('48999990000')).toBe('(48) 99999-0000');
+    expect(mascararTelefone('48')).toBe('(48');
+  });
+});

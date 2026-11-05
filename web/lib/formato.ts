@@ -27,3 +27,12 @@ export function resumir(texto: string, max = 160): string {
   const limpo = texto.replace(/\s+/g, ' ').trim();
   return limpo.length <= max ? limpo : `${limpo.slice(0, max - 1).trimEnd()}…`;
 }
+
+/** Máscara simples de telefone brasileiro enquanto a pessoa digita. */
+export function mascararTelefone(valor: string): string {
+  const d = valor.replace(/\D/g, '').slice(0, 11);
+  if (d.length <= 2) return d.length ? `(${d}` : '';
+  if (d.length <= 6) return `(${d.slice(0, 2)}) ${d.slice(2)}`;
+  if (d.length <= 10) return `(${d.slice(0, 2)}) ${d.slice(2, 6)}-${d.slice(6)}`;
+  return `(${d.slice(0, 2)}) ${d.slice(2, 7)}-${d.slice(7)}`;
+}
