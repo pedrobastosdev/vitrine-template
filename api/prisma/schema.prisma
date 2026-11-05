@@ -1,0 +1,112 @@
+generator client {
+  provider            = "prisma-client"
+  output              = "../src/generated/prisma"
+  moduleFormat        = "esm"
+  importFileExtension = "js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Categoria {
+  id           Int      @id @default(autoincrement())
+  nome         String
+  slug         String   @unique
+  ordem        Int      @default(0)
+  itens        Item[]
+  criadoEm     DateTime @default(now())
+  atualizadoEm DateTime @updatedAt
+}
+
+model Item {
+  id           Int            @id @default(autoincrement())
+  titulo       String
+  slug         String         @unique
+  descricao    String         @default("")
+  preco        Decimal?       @db.Decimal(12, 2)
+  destaque     Boolean        @default(false)
+  ativo        Boolean        @default(true)
+  categoriaId  Int
+  categoria    Categoria      @relation(fields: [categoriaId], references: [id], onDelete: Restrict)
+  imagens      ImagemItem[]
+  atributos    AtributoItem[]
+  leads        Lead[]
+  criadoEm     DateTime       @default(now())
+  atualizadoEm DateTime       @updatedAt
+
+  @@index([ativo, categoriaId])
+  @@index([ativo, destaque])
+}
+
+model ImagemItem {
+  id       Int      @id @default(autoincrement())
+  url      String
+  publicId String
+  ordem    Int      @default(0)
+  capa     Boolean  @default(false)
+  itemId   Int
+  item     Item     @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  criadoEm DateTime @default(now())
+
+  @@index([itemId, ordem])
+}
+
+model AtributoItem {
+  id     Int    @id @default(autoincrement())
+  nome   String
+  valor  String
+  ordem  Int    @default(0)
+  itemId Int
+  item   Item   @relation(fields: [itemId], references: [id], onDelete: Cascade)
+
+  @@index([itemId, ordem])
+}
+
+model Lead {
+  id       Int      @id @default(autoincrement())
+  nome     String
+  telefone String
+  mensagem String
+  itemId   Int?
+  item     Item?    @relation(fields: [itemId], references: [id], onDelete: SetNull)
+  atendido Boolean  @default(false)
+  criadoEm DateTime @default(now())
+
+  @@index([atendido, criadoEm])
+}
+
+/// Registro único (id = 1): cada cliente tem a própria cópia do sistema
+model Negocio {
+  id            Int      @id @default(1)
+  nome          String
+  slogan        String   @default("")
+  logoUrl       String?
+  logoPublicId  String?
+  corPrimaria   String   @default("#1d4ed8")
+  corSecundaria String   @default("#0f172a")
+  estiloTitulo  String   @default("sans") // "sans" | "serifa"
+  whatsapp      String
+  telefone      String   @default("")
+  email         String   @default("")
+  endereco      String   @default("")
+  cidade        String   @default("")
+  instagram     String   @default("")
+  rotuloItens   String   @default("Itens") // ex.: "Imóveis", "Serviços"
+  heroTitulo    String   @default("")
+  heroSubtitulo String   @default("")
+  heroImagemUrl String?
+  heroPublicId  String?
+  sobreTitulo   String   @default("")
+  sobreTexto    String   @default("")
+  atualizadoEm  DateTime @updatedAt
+}
+
+/// Registro único: o dono do negócio
+model Usuario {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  senhaHash String
+  nome      String   @default("")
+  criadoEm  DateTime @default(now())
+}
