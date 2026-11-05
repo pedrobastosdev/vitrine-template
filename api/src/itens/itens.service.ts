@@ -7,6 +7,10 @@ import { Prisma } from '../generated/prisma/client.js';
 import { paginar } from '../comum/paginacao.dto.js';
 import { gerarSlugUnico } from '../comum/slug.js';
 import { CloudinaryService } from '../imagens/cloudinary.service.js';
+import {
+  RevalidacaoService,
+  TAGS,
+} from '../revalidacao/revalidacao.service.js';
 import { PrismaService } from '../prisma/prisma.service.js';
 import {
   AtualizarItemDto,
@@ -22,7 +26,12 @@ export class ItensService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly cloudinary: CloudinaryService,
+    private readonly revalidacao: RevalidacaoService,
   ) {}
+
+  private revalidar(slug: string) {
+    this.revalidacao.revalidar(TAGS.itens, TAGS.item(slug));
+  }
 
   // ---------- Público: sempre filtra ativo = true ----------
 
@@ -152,6 +161,7 @@ export class ItensService {
         await substituirAtributos(tx, criado.id, dto.atributos);
       return criado;
     });
+    this.revalidar(item.slug);
     return this.porId(item.id);
   }
 
@@ -176,6 +186,7 @@ export class ItensService {
       });
       if (dto.atributos) await substituirAtributos(tx, id, dto.atributos);
     });
+    this.revalidar(anterior.slug);
     return { anterior, atual: await this.porId(id) };
   }
 
@@ -185,6 +196,7 @@ export class ItensService {
     await this.prisma.$transaction((tx) =>
       substituirAtributos(tx, id, atributos),
     );
+    this.revalidar(item.slug);
     return { item, atributos: (await this.porId(id)).atributos };
   }
 
@@ -196,6 +208,7 @@ export class ItensService {
     });
     await this.prisma.item.delete({ where: { id } });
     await this.cloudinary.removerVarias(imagens.map((i) => i.publicId));
+    this.revalidar(item.slug);
     return item;
   }
 }

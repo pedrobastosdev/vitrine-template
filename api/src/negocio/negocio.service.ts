@@ -1,5 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CloudinaryService } from '../imagens/cloudinary.service.js';
+import {
+  RevalidacaoService,
+  TAGS,
+} from '../revalidacao/revalidacao.service.js';
 import { PrismaService } from '../prisma/prisma.service.js';
 import { AtualizarNegocioDto } from './dto/atualizar-negocio.dto.js';
 
@@ -10,6 +14,7 @@ export class NegocioService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly cloudinary: CloudinaryService,
+    private readonly revalidacao: RevalidacaoService,
   ) {}
 
   async obter() {
@@ -30,6 +35,7 @@ export class NegocioService {
       create: Object.assign({ id: ID_NEGOCIO }, dto),
       update: Object.assign({}, dto),
     });
+    this.revalidacao.revalidar(TAGS.negocio);
     return this.obter();
   }
 
@@ -52,6 +58,7 @@ export class NegocioService {
           : { heroImagemUrl: nova.url, heroPublicId: nova.publicId },
     });
     await this.cloudinary.removerVarias(anterior ? [anterior] : []);
+    this.revalidacao.revalidar(TAGS.negocio);
     return this.obter();
   }
 
@@ -72,6 +79,7 @@ export class NegocioService {
           ? { logoUrl: null, logoPublicId: null }
           : { heroImagemUrl: null, heroPublicId: null },
     });
+    this.revalidacao.revalidar(TAGS.negocio);
     return this.obter();
   }
 }

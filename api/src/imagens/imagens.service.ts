@@ -3,6 +3,10 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
+import {
+  RevalidacaoService,
+  TAGS,
+} from '../revalidacao/revalidacao.service.js';
 import { PrismaService } from '../prisma/prisma.service.js';
 import { escolherCapa } from './capa.js';
 import { CloudinaryService } from './cloudinary.service.js';
@@ -14,7 +18,12 @@ export class ImagensService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly cloudinary: CloudinaryService,
+    private readonly revalidacao: RevalidacaoService,
   ) {}
+
+  private revalidar(slug: string) {
+    this.revalidacao.revalidar(TAGS.itens, TAGS.item(slug));
+  }
 
   private async item(itemId: number) {
     const item = await this.prisma.item.findUnique({
@@ -72,6 +81,7 @@ export class ImagensService {
       select: { id: true },
     });
     await this.aplicarCapa(itemId);
+    this.revalidar(item.slug);
     const imagens = await this.listar(itemId);
     return { item, imagem: imagens.find((i) => i.id === imagem.id)!, imagens };
   }
@@ -84,6 +94,7 @@ export class ImagensService {
     if (!existe)
       throw new NotFoundException('Imagem não encontrada neste item');
     await this.aplicarCapa(itemId, imagemId);
+    this.revalidar(item.slug);
     return { item, imagens: await this.listar(itemId) };
   }
 
@@ -105,6 +116,7 @@ export class ImagensService {
         this.prisma.imagemItem.update({ where: { id }, data: { ordem } }),
       ),
     );
+    this.revalidar(item.slug);
     return { item, imagens: await this.listar(itemId) };
   }
 
@@ -119,6 +131,7 @@ export class ImagensService {
     await this.cloudinary.remover(imagem.publicId);
     await this.prisma.imagemItem.delete({ where: { id: imagemId } });
     await this.aplicarCapa(itemId);
+    this.revalidar(item.slug);
     return { item, imagens: await this.listar(itemId) };
   }
 }

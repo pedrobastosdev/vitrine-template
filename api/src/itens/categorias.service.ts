@@ -4,6 +4,10 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { gerarSlugUnico } from '../comum/slug.js';
+import {
+  RevalidacaoService,
+  TAGS,
+} from '../revalidacao/revalidacao.service.js';
 import { PrismaService } from '../prisma/prisma.service.js';
 import {
   AtualizarCategoriaDto,
@@ -12,7 +16,14 @@ import {
 
 @Injectable()
 export class CategoriasService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly revalidacao: RevalidacaoService,
+  ) {}
+
+  private revalidar() {
+    this.revalidacao.revalidar(TAGS.categorias, TAGS.itens);
+  }
 
   /** Público: categorias com a contagem de itens ativos. */
   async listar() {
@@ -61,10 +72,12 @@ export class CategoriasService {
       dto.nome && dto.nome !== atual.nome
         ? await this.gerarSlug(dto.nome, id)
         : undefined;
-    return this.prisma.categoria.update({
+    const categoria = await this.prisma.categoria.update({
       where: { id },
       data: { nome: dto.nome, ordem: dto.ordem, slug },
     });
+    this.revalidar();
+    return categoria;
   }
 
   async remover(id: number) {
@@ -79,6 +92,7 @@ export class CategoriasService {
       );
     }
     await this.prisma.categoria.delete({ where: { id } });
+    this.revalidar();
     return categoria;
   }
 }
