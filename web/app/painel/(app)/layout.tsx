@@ -11,7 +11,7 @@ export default async function PainelLayout({ children }: LayoutProps<'/painel'>)
   const { negocio } = await negocioOuPadrao();
   const topo = (
     <div className="space-y-1">
-      <Marca negocio={negocio} />
+      <Marca negocio={negocio} quebrar />
       <p className="pl-[3.1rem] text-xs text-muted-foreground">Painel de gestão</p>
     </div>
   );

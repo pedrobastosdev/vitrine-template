@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import type { Negocio } from '@/lib/tipos';
 
-export function Marca({ negocio, claro = false }: { negocio: Negocio; claro?: boolean }) {
+export function Marca({ negocio, claro = false, quebrar = false }: { negocio: Negocio; claro?: boolean; quebrar?: boolean }) {
   const iniciais = negocio.nome
     .split(/\s+/)
     .slice(0, 2)
@@ -18,7 +18,9 @@ export function Marca({ negocio, claro = false }: { negocio: Negocio; claro?: bo
           {iniciais}
         </span>
       )}
-      <span className={`truncate font-heading text-lg leading-tight font-bold ${claro ? 'text-white' : 'text-foreground'}`}>
+      <span
+        className={`${quebrar ? 'line-clamp-2 text-base' : 'truncate text-lg'} font-heading leading-tight font-bold ${claro ? 'text-white' : 'text-foreground'}`}
+      >
         {negocio.nome}
       </span>
     </Link>
