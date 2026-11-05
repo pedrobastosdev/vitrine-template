@@ -4,6 +4,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { AuthModule } from './auth/auth.module.js';
 import { validarEnv } from './config/env.js';
+import { ItensModule } from './itens/itens.module.js';
 import { NegocioModule } from './negocio/negocio.module.js';
 import { PrismaModule } from './prisma/prisma.module.js';
 import { SaudeController } from './saude/saude.controller.js';
@@ -15,6 +16,7 @@ import { SaudeController } from './saude/saude.controller.js';
     PrismaModule,
     AuthModule,
     NegocioModule,
+    ItensModule,
   ],
   controllers: [SaudeController],
   providers: [{ provide: APP_GUARD, useClass: ThrottlerGuard }],
