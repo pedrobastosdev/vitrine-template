@@ -18,7 +18,7 @@ export async function Rodape({ negocio }: { negocio: Negocio }) {
   const telefoneWhats = negocio.whatsapp.replace(/^55/, '').replace(/(\d{2})(\d{4,5})(\d{4})$/, '($1) $2-$3');
 
   return (
-    <footer className="mt-24 bg-[#0f1115] text-white">
+    <footer className="mt-24 bg-[#0f1115] text-white [--foco:var(--marca-clara)]">
       <div className="mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-6 md:grid-cols-2 lg:grid-cols-4 lg:px-8">
         <div className="space-y-4 lg:col-span-1">
           <Marca negocio={negocio} claro />

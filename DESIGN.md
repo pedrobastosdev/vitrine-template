@@ -159,8 +159,11 @@ produção, `variaveisDoTema()` em `web/lib/cor.ts` os sobrescreve no `<html>`.
   Demos: azul-petróleo `#1f4e5f` (imobiliária), amarelo `#facc15` (guincho).
 - **Texto sobre a Marca** (`marca-contraste`): branco ou quase-preto (`#050505`), o que der mais
   contraste com a marca. Calculado, nunca escolhido.
-- **Marca Forte** (`marca-forte`): a marca escurecida até 4,5:1 sobre branco. É a única forma da
-  cor do cliente aparecer como **texto**: links, preços, ícones de atributo, anel de foco.
+- **Marca Forte** (`marca-forte`): a marca escurecida até 4,5:1 sobre o mais escuro dos fundos
+  em que aparece (branco, papel e Marca Suave). É a única forma da cor do cliente aparecer como
+  **texto**: links, preços, ícones de atributo, anel de foco. Em superfícies escuras ou na cor da
+  marca, o anel de foco usa `--foco` (Marca Clara no rodapé, branco no hero, `marca-contraste` na
+  faixa final).
   O amarelo do guincho vira um mostarda legível aqui.
 - **Marca Suave** (`marca-suave`): 90% branco + marca. Fundo de hover na navegação, de ícones de
   atributo e de placeholders de foto.

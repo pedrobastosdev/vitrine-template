@@ -38,6 +38,8 @@ export function contraste(a: string, b: string): number {
 }
 
 export const BRANCO = '#ffffff';
+/** Fundo das páginas (--background, oklch 0.985 0.003 95). */
+export const PAPEL = '#fbfaf8';
 /** Fundo do rodapé. */
 export const FUNDO_ESCURO = '#0f1115';
 // Preto profundo o bastante para que qualquer cor alcance 4.5:1 com branco ou com ele
@@ -75,17 +77,23 @@ export interface CoresTema {
   corSecundaria: string;
 }
 
+/** O fundo de menor luminância da lista: o pior caso para texto escuro. */
+const maisEscuro = (...fundos: string[]) => fundos.reduce((a, b) => (luminancia(b) < luminancia(a) ? b : a));
+
 /** Variáveis CSS aplicadas no <html>. */
 export function variaveisDoTema({ corPrimaria, corSecundaria }: CoresTema) {
+  const suave = misturar(corPrimaria, BRANCO, 0.9);
   return {
     '--marca': corPrimaria,
     '--marca-contraste': corDoTexto(corPrimaria),
-    '--marca-forte': ajustarParaContraste(corPrimaria),
+    // Texto na cor da marca aparece sobre branco, sobre o papel e sobre a Marca Suave:
+    // o contraste é garantido contra o mais escuro dos três
+    '--marca-forte': ajustarParaContraste(corPrimaria, maisEscuro(BRANCO, PAPEL, suave)),
     '--marca-clara': ajustarParaContraste(corPrimaria, FUNDO_ESCURO),
-    '--marca-suave': misturar(corPrimaria, BRANCO, 0.9),
+    '--marca-suave': suave,
     '--marca-escura': misturar(corPrimaria, QUASE_PRETO, 0.55),
     '--destaque': corSecundaria,
     '--destaque-contraste': corDoTexto(corSecundaria),
-    '--destaque-forte': ajustarParaContraste(corSecundaria),
+    '--destaque-forte': ajustarParaContraste(corSecundaria, maisEscuro(BRANCO, PAPEL)),
   } as Record<string, string>;
 }

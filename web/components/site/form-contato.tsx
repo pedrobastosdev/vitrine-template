@@ -12,7 +12,7 @@ import { linkWhatsApp } from '@/lib/whatsapp';
 import { IconeWhatsApp } from './icones';
 
 const campo =
-  'w-full rounded-xl border-0 bg-white px-4 py-3.5 text-base text-foreground ring-1 ring-black/10 transition placeholder:text-muted-foreground/70 focus:ring-2 focus:ring-marca-forte focus:outline-none aria-[invalid=true]:ring-destructive';
+  'w-full rounded-xl border-0 bg-white px-4 py-3.5 text-base text-foreground ring-1 ring-black/10 transition placeholder:text-muted-foreground focus:ring-2 focus:ring-marca-forte focus:outline-none aria-[invalid=true]:ring-destructive';
 
 interface Props {
   item?: { id: number; titulo: string };

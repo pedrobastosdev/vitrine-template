@@ -159,9 +159,10 @@
     font-family: var(--font-heading);
     text-wrap: balance;
   }
-  /* Foco sempre visível para quem navega pelo teclado */
+  /* Foco sempre visível para quem navega pelo teclado. Superfícies escuras ou na cor
+     da marca trocam --foco por uma cor que contraste com elas. */
   :focus-visible {
-    outline: 3px solid var(--marca-forte);
+    outline: 3px solid var(--foco, var(--marca-forte));
     outline-offset: 2px;
   }
   /* A barra de contato fixa do celular não pode cobrir o fim da página (rodapé) */

@@ -4,6 +4,7 @@ import {
   contraste,
   corDoTexto,
   hexParaRgb,
+  PAPEL,
   variaveisDoTema,
 } from './cor';
 
@@ -34,6 +35,17 @@ describe('cores do tema', () => {
   it('não mexe numa cor que já tem contraste', () => {
     expect(ajustarParaContraste('#1f4e5f')).toBe('#1f4e5f');
   });
+
+  it.each(['#facc15', '#a3e635', '#f9a8d4', '#c8a24a', '#22c55e', '#ff6b00', '#1f4e5f', '#1d4ed8'])(
+    'Marca Forte de %s passa de 4.5:1 no branco, no papel e na Marca Suave',
+    (cor) => {
+      const v = variaveisDoTema({ corPrimaria: cor, corSecundaria: cor });
+      for (const fundo of ['#ffffff', PAPEL, v['--marca-suave']])
+        expect(contraste(v['--marca-forte'], fundo)).toBeGreaterThanOrEqual(4.5);
+      expect(contraste(v['--destaque-forte'], PAPEL)).toBeGreaterThanOrEqual(4.5);
+      expect(contraste(v['--marca-clara'], '#0f1115')).toBeGreaterThanOrEqual(4.5);
+    },
+  );
 
   it('gera as variáveis CSS do tema', () => {
     const v = variaveisDoTema({ corPrimaria: '#facc15', corSecundaria: '#111827' });

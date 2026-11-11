@@ -43,7 +43,7 @@ export default async function Home() {
   return (
     <>
       {/* Hero */}
-      <section className="relative isolate flex min-h-[82svh] items-end overflow-hidden bg-marca-escura text-white sm:items-center">
+      <section className="relative isolate flex min-h-[82svh] items-end overflow-hidden bg-marca-escura text-white [--foco:#ffffff] sm:items-center">
         {negocio.heroImagemUrl && (
           <Image
             src={negocio.heroImagemUrl}
@@ -187,7 +187,7 @@ export default async function Home() {
 
       {/* Chamada final */}
       <section className="mx-auto mt-24 max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="rounded-3xl bg-marca px-8 py-14 text-center text-marca-contraste sm:px-16">
+        <div className="rounded-3xl bg-marca px-8 py-14 text-center text-marca-contraste [--foco:var(--marca-contraste)] sm:px-16">
           <h2 className="font-heading text-3xl font-extrabold tracking-tight sm:text-4xl">Vamos conversar?</h2>
           <p className="mx-auto mt-4 max-w-xl text-lg opacity-90">
             Conte o que você precisa e a gente responde pelo canal que você preferir.
