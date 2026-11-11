@@ -23,6 +23,8 @@ interface Props {
 
 export function FormContato({ item, whatsapp, rotuloItem }: Props) {
   const [enviado, setEnviado] = useState(false);
+  // A API do plano gratuito pode levar até um minuto para acordar
+  const [demorando, setDemorando] = useState(false);
   const {
     register,
     handleSubmit,
@@ -42,11 +44,13 @@ export function FormContato({ item, whatsapp, rotuloItem }: Props) {
 
   // Vai direto do navegador para a API: o limite por IP vale para quem visita, não para o servidor
   const enviar = async (dados: LeadForm) => {
+    const timer = setTimeout(() => setDemorando(true), 8000);
     try {
       const r = await fetch(`${API_URL}/leads`, {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify(dados),
+        signal: AbortSignal.timeout(75_000),
       });
       if (r.status === 429) {
         toast.error('Muitas mensagens em pouco tempo. Tente de novo em alguns minutos ou chame no WhatsApp.');
@@ -57,7 +61,11 @@ export function FormContato({ item, whatsapp, rotuloItem }: Props) {
       reset();
       toast.success('Mensagem enviada! Logo entraremos em contato.');
     } catch {
-      toast.error('Não conseguimos enviar agora. Tente de novo ou fale pelo WhatsApp.');
+      // A mensagem continua no formulário: dá para tentar de novo sem digitar tudo
+      toast.error('Não conseguimos enviar agora. Sua mensagem continua aqui: tente de novo ou fale pelo WhatsApp.');
+    } finally {
+      clearTimeout(timer);
+      setDemorando(false);
     }
   };
 
@@ -149,6 +157,20 @@ export function FormContato({ item, whatsapp, rotuloItem }: Props) {
         {isSubmitting ? <LoaderCircle className="size-5 animate-spin" aria-hidden /> : <Send className="size-5" aria-hidden />}
         {isSubmitting ? 'Enviando...' : 'Enviar mensagem'}
       </button>
+      {demorando && (
+        <p role="status" className="text-center text-sm text-muted-foreground">
+          Ainda enviando. A primeira mensagem do dia pode levar até um minuto.
+          {whatsapp && (
+            <>
+              {' '}Se preferir,{' '}
+              <a href={linkWhatsApp(whatsapp, aviso)} target="_blank" rel="noopener noreferrer" className="font-semibold text-marca-forte underline underline-offset-4">
+                chame no WhatsApp
+              </a>
+              .
+            </>
+          )}
+        </p>
+      )}
     </form>
   );
 }

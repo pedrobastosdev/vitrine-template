@@ -7,6 +7,7 @@ import { AvisoIndisponivel, NenhumItem } from '@/components/site/estados';
 import { TituloPagina } from '@/components/site/titulo-pagina';
 import { obterCategorias, obterItens } from '@/lib/api-publica';
 import { negocioOuPadrao } from '@/lib/negocio';
+import type { Negocio } from '@/lib/tipos';
 import { cn } from '@/lib/utils';
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -30,13 +31,14 @@ function hrefFiltro(categoria?: string, pagina?: number) {
   return s ? `/itens?${s}` : '/itens';
 }
 
-async function Listagem({ searchParams, rotulo }: { searchParams: PageProps<'/itens'>['searchParams']; rotulo: string }) {
+async function Listagem({ searchParams, negocio }: { searchParams: PageProps<'/itens'>['searchParams']; negocio: Negocio }) {
+  const rotulo = negocio.rotuloItens;
   const params = await searchParams;
   const categoria = texto(params.categoria);
   const pagina = Math.max(1, Number(texto(params.pagina)) || 1);
   const [categorias, itens] = await Promise.all([obterCategorias(), obterItens({ categoria, pagina })]);
 
-  if (!itens.ok) return <AvisoIndisponivel />;
+  if (!itens.ok) return <AvisoIndisponivel negocio={negocio} />;
   const { totalPaginas, total } = itens.dados;
 
   return (
@@ -126,7 +128,7 @@ export default async function PaginaItens({ searchParams }: PageProps<'/itens'>)
       </TituloPagina>
       <div className="mx-auto max-w-7xl px-4 pt-6 pb-16 sm:px-6 sm:pt-10 lg:px-8">
         <Suspense fallback={<ListagemSkeleton />}>
-          <Listagem searchParams={searchParams} rotulo={negocio.rotuloItens} />
+          <Listagem searchParams={searchParams} negocio={negocio} />
         </Suspense>
       </div>
     </>

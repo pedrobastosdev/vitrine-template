@@ -73,7 +73,7 @@ async function Detalhe({ params }: { params: PageProps<'/[slug]'>['params'] }) {
   const { slug } = await params;
   const [r, { negocio }] = await Promise.all([obterItem(slug), negocioOuPadrao()]);
   if (!r.ok && r.status === 'nao-encontrado') notFound();
-  if (!r.ok) return <AvisoIndisponivel />;
+  if (!r.ok) return <AvisoIndisponivel negocio={negocio} />;
 
   const item = r.dados;
   const mensagem = mensagemInteresse(item.titulo);

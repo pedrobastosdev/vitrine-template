@@ -30,7 +30,7 @@ export function Mapa({ endereco }: { endereco: string }) {
       {visivel ? (
         <iframe
           title={`Mapa: ${endereco}`}
-          src={`https://maps.google.com/maps?q=${q}&z=15&output=embed`}
+          src={`https://maps.google.com/maps?q=${q}&z=15&hl=pt-BR&output=embed`}
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
           className="absolute inset-0 h-full w-full border-0"

@@ -19,7 +19,9 @@ async function buscar<T>(caminho: string, tags: string[]): Promise<Resultado<T>>
   try {
     const r = await fetch(`${API_URL}${caminho}`, {
       headers: { accept: 'application/json' },
-      signal: AbortSignal.timeout(15_000),
+      // No build, espera a API do plano gratuito acordar (~50 s) para as páginas saírem
+      // completas e com a marca do cliente; em produção, 15 s bastam
+      signal: AbortSignal.timeout(process.env.NEXT_PHASE === 'phase-production-build' ? 75_000 : 15_000),
     });
     if (r.status === 404) {
       cacheLife('hours');

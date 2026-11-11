@@ -158,6 +158,11 @@
   h1, h2, h3 {
     font-family: var(--font-heading);
     text-wrap: balance;
+    /* Títulos vêm do painel: uma palavra enorme ou um link não pode estourar a tela */
+    overflow-wrap: break-word;
+  }
+  p {
+    text-wrap: pretty;
   }
   /* Foco sempre visível para quem navega pelo teclado. Superfícies escuras ou na cor
      da marca trocam --foco por uma cor que contraste com elas. */

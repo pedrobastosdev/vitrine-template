@@ -1,6 +1,10 @@
 import { CloudOff, SearchX } from 'lucide-react';
 import Link from 'next/link';
 import type { ReactNode } from 'react';
+import { acoesContato } from '@/lib/contato';
+import type { Negocio } from '@/lib/tipos';
+import { LinkAcao } from './acao-contato';
+import { AtualizarPagina } from './atualizar-pagina';
 
 function Estado({ icone, titulo, children }: { icone: ReactNode; titulo: string; children: ReactNode }) {
   return (
@@ -12,11 +16,29 @@ function Estado({ icone, titulo, children }: { icone: ReactNode; titulo: string;
   );
 }
 
-/** Mostrado quando a API está dormindo ou fora do ar. */
-export function AvisoIndisponivel() {
+/**
+ * Mostrado quando a API está dormindo ou fora do ar. Os links de contato não dependem
+ * do servidor, então quem tem pressa ainda consegue falar com o negócio.
+ */
+export function AvisoIndisponivel({ negocio }: { negocio?: Negocio }) {
+  const canais = negocio ? acoesContato(negocio).filter((a) => a.tipo !== 'catalogo') : [];
   return (
     <Estado icone={<CloudOff className="size-8" aria-hidden />} titulo="O catálogo não carregou">
-      <p>Pode levar até um minuto na primeira visita do dia. Atualize a página em instantes.</p>
+      <p>Pode levar até um minuto na primeira visita do dia. Atualize a página em instantes{canais.length ? ' ou fale direto com a gente.' : '.'}</p>
+      <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
+        {canais.map((acao, i) => (
+          <LinkAcao
+            key={acao.tipo}
+            acao={acao}
+            className={
+              i === 0
+                ? 'min-h-12 rounded-full bg-marca px-6 font-semibold text-marca-contraste'
+                : 'min-h-12 rounded-full px-6 font-semibold text-foreground ring-1 ring-black/10'
+            }
+          />
+        ))}
+        <AtualizarPagina className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-6 font-semibold text-foreground ring-1 ring-black/10" />
+      </div>
     </Estado>
   );
 }
