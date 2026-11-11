@@ -190,7 +190,7 @@ export default async function Home() {
         <div className="rounded-3xl bg-marca px-8 py-14 text-center text-marca-contraste sm:px-16">
           <h2 className="font-heading text-3xl font-extrabold tracking-tight sm:text-4xl">Vamos conversar?</h2>
           <p className="mx-auto mt-4 max-w-xl text-lg opacity-90">
-            Conte o que você precisa e a gente responde rapidinho.
+            Conte o que você precisa e a gente responde pelo canal que você preferir.
           </p>
           <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
             {canais.map((acao, i) => (

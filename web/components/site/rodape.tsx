@@ -96,9 +96,8 @@ export async function Rodape({ negocio }: { negocio: Negocio }) {
         </div>
       </div>
       <div className="border-t border-white/10">
-        <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-6 text-xs opacity-70 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl px-4 py-6 text-xs opacity-70 sm:px-6 lg:px-8">
           <p>© {ano} {negocio.nome}. Todos os direitos reservados.</p>
-          <p>Site com painel próprio</p>
         </div>
       </div>
     </footer>

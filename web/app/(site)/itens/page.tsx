@@ -11,7 +11,7 @@ import { cn } from '@/lib/utils';
 
 export async function generateMetadata(): Promise<Metadata> {
   const { negocio } = await negocioOuPadrao();
-  const descricao = `Veja todos os ${negocio.rotuloItens.toLowerCase()} de ${negocio.nome}, com fotos, detalhes e contato direto pelo WhatsApp.`;
+  const descricao = `Veja todos os ${negocio.rotuloItens.toLowerCase()} de ${negocio.nome}, com fotos, detalhes e contato direto.`;
   return {
     title: negocio.rotuloItens,
     description: descricao,
@@ -70,7 +70,14 @@ async function Listagem({ searchParams, rotulo }: { searchParams: PageProps<'/it
       </p>
 
       {itens.dados.itens.length === 0 ? (
-        <NenhumItem rotulo={rotulo} comFiltro={Boolean(categoria)} />
+        <NenhumItem
+          rotulo={rotulo}
+          filtro={
+            categoria
+              ? { slug: categoria, nome: categorias.ok ? categorias.dados.find((c) => c.slug === categoria)?.nome : undefined }
+              : undefined
+          }
+        />
       ) : (
         <GradeItens itens={itens.dados.itens} prioridade={3} />
       )}
@@ -115,7 +122,7 @@ export default async function PaginaItens({ searchParams }: PageProps<'/itens'>)
   return (
     <>
       <TituloPagina titulo={negocio.rotuloItens}>
-        Fotos, detalhes e atendimento direto pelo WhatsApp.
+        Veja fotos e detalhes e fale direto com a gente.
       </TituloPagina>
       <div className="mx-auto max-w-7xl px-4 pt-6 pb-16 sm:px-6 sm:pt-10 lg:px-8">
         <Suspense fallback={<ListagemSkeleton />}>

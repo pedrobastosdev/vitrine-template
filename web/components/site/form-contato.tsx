@@ -61,6 +61,10 @@ export function FormContato({ item, whatsapp, rotuloItem }: Props) {
     }
   };
 
+  const aviso = item
+    ? `Olá! Acabei de enviar uma mensagem pelo site sobre "${item.titulo}".`
+    : 'Olá! Acabei de enviar uma mensagem pelo site.';
+
   if (enviado) {
     return (
       <div className="flex flex-col items-center rounded-3xl bg-white p-10 text-center shadow-sm ring-1 ring-black/5" role="status">
@@ -69,7 +73,7 @@ export function FormContato({ item, whatsapp, rotuloItem }: Props) {
         <p className="mt-2 text-muted-foreground">Responderemos pelo telefone informado o quanto antes.</p>
         <div className="mt-6 flex flex-col gap-3 sm:flex-row">
           {whatsapp && (
-            <a href={linkWhatsApp(whatsapp)} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 rounded-full bg-marca px-6 py-3 font-semibold text-marca-contraste">
+            <a href={linkWhatsApp(whatsapp, aviso)} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 rounded-full bg-marca px-6 py-3 font-semibold text-marca-contraste">
               <IconeWhatsApp className="size-5" /> Adiantar pelo WhatsApp
             </a>
           )}
@@ -112,14 +116,20 @@ export function FormContato({ item, whatsapp, rotuloItem }: Props) {
           placeholder="(00) 00000-0000"
           className={campo}
           aria-invalid={!!errors.telefone}
-          aria-describedby={errors.telefone ? 'erro-telefone' : undefined}
+          aria-describedby={errors.telefone ? 'erro-telefone' : 'ajuda-telefone'}
           {...telefone}
           onChange={(e) => {
             setValue('telefone', mascararTelefone(e.target.value));
             void telefone.onChange(e);
           }}
         />
-        {erro('telefone')}
+        {errors.telefone ? (
+          erro('telefone')
+        ) : (
+          <p id="ajuda-telefone" className="mt-1.5 text-sm text-muted-foreground">
+            Usado só para responder a sua mensagem.
+          </p>
+        )}
       </div>
       <div>
         <label htmlFor="mensagem" className="mb-1.5 block text-sm font-semibold">Mensagem</label>
