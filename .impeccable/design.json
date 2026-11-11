@@ -1,0 +1,325 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-11T20:08:27.340633+00:00",
+  "title": "Design System: Vitrine",
+  "extensions": {
+    "colorMeta": {
+      "marca": {
+        "role": "primary",
+        "displayName": "Cor da Marca",
+        "canonical": "var(--marca) — definida pelo cliente",
+        "tonalRamp": [
+          "#0c1b44",
+          "#112a6e",
+          "#163899",
+          "#1b47c3",
+          "#567ae2",
+          "#8ea6ec",
+          "#c6d3f5",
+          "#edf1fc"
+        ]
+      },
+      "marca-forte": {
+        "role": "primary",
+        "displayName": "Marca Forte (texto legível)",
+        "canonical": "ajustarParaContraste(marca, branco, 4.5)"
+      },
+      "marca-suave": {
+        "role": "primary",
+        "displayName": "Marca Suave",
+        "canonical": "misturar(marca, branco, 0.9)"
+      },
+      "marca-clara": {
+        "role": "primary",
+        "displayName": "Marca Clara (sobre o rodapé)",
+        "canonical": "ajustarParaContraste(marca, #0f1115, 4.5)"
+      },
+      "marca-escura": {
+        "role": "primary",
+        "displayName": "Marca Escura",
+        "canonical": "misturar(marca, #050505, 0.55)"
+      },
+      "destaque": {
+        "role": "secondary",
+        "displayName": "Cor de Destaque",
+        "canonical": "var(--destaque) — definida pelo cliente",
+        "tonalRamp": [
+          "#080a10",
+          "#0a0e18",
+          "#0c121f",
+          "#0e1526",
+          "#4b515f",
+          "#878b94",
+          "#c3c5ca",
+          "#ececee"
+        ]
+      },
+      "fundo-papel": {
+        "role": "neutral",
+        "displayName": "Papel Quente",
+        "canonical": "oklch(0.985 0.003 95)"
+      },
+      "superficie": {
+        "role": "neutral",
+        "displayName": "Superfície",
+        "canonical": "oklch(1 0 0)"
+      },
+      "tinta": {
+        "role": "neutral",
+        "displayName": "Tinta",
+        "canonical": "oklch(0.145 0 0)"
+      },
+      "texto-apagado": {
+        "role": "neutral",
+        "displayName": "Texto Apagado",
+        "canonical": "oklch(0.556 0 0)"
+      },
+      "linha": {
+        "role": "neutral",
+        "displayName": "Linha",
+        "canonical": "oklch(0.922 0 0)"
+      },
+      "rodape-noite": {
+        "role": "neutral",
+        "displayName": "Noite do Rodapé",
+        "canonical": "#0f1115",
+        "tonalRamp": [
+          "#08090a",
+          "#0a0b0d",
+          "#0c0d10",
+          "#0e1013",
+          "#4b4c50",
+          "#87888a",
+          "#c3c4c4",
+          "#ececec"
+        ]
+      },
+      "whatsapp": {
+        "role": "tertiary",
+        "displayName": "Verde WhatsApp",
+        "canonical": "#25D366",
+        "tonalRamp": [
+          "#0f4322",
+          "#156c36",
+          "#1b9549",
+          "#22be5c",
+          "#5cde8c",
+          "#92e9b2",
+          "#c8f4d9",
+          "#eefbf3"
+        ]
+      },
+      "perigo": {
+        "role": "error",
+        "displayName": "Perigo",
+        "canonical": "oklch(0.577 0.245 27.325)"
+      }
+    },
+    "demoThemes": {
+      "imobiliaria": {
+        "marca": "#1f4e5f",
+        "destaque": "#c8a24a",
+        "estiloTitulo": "serifa"
+      },
+      "guincho": {
+        "marca": "#facc15",
+        "destaque": "#111827",
+        "estiloTitulo": "sans"
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Título do hero e h1 das páginas; fonte escolhida pelo cliente (Plus Jakarta Sans ou Fraunces)."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Títulos de seção e nome do item."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Títulos de card e blocos do painel."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Texto corrido em Inter."
+      },
+      "body-lead": {
+        "displayName": "Body Lead",
+        "purpose": "Subtítulo do hero."
+      },
+      "label": {
+        "displayName": "Eyebrow",
+        "purpose": "Rótulos em maiúsculas acima dos títulos, em marca-forte."
+      },
+      "chip": {
+        "displayName": "Chip",
+        "purpose": "Selos de categoria e destaque."
+      }
+    },
+    "shadows": [
+      {
+        "name": "repouso",
+        "value": "0 1px 2px rgb(0 0 0 / 0.05), 0 0 0 1px rgb(0 0 0 / 0.05)",
+        "purpose": "Cards e blocos em repouso."
+      },
+      {
+        "name": "elevado-hover",
+        "value": "0 20px 25px -5px rgb(0 0 0 / 0.1)",
+        "purpose": "Card de item no hover, com translateY(-4px)."
+      },
+      {
+        "name": "cta-flutuante",
+        "value": "0 10px 15px -3px rgb(0 0 0 / 0.25)",
+        "purpose": "CTAs sobre foto e botão do WhatsApp."
+      },
+      {
+        "name": "vidro",
+        "value": "backdrop-filter: blur(12px); background: rgb(255 255 255 / 0.85)",
+        "purpose": "Cabeçalho sticky."
+      }
+    ],
+    "motion": [
+      {
+        "name": "surgir",
+        "value": "surgir 0.6s cubic-bezier(0.22, 1, 0.36, 1) both",
+        "purpose": "Entrada escalonada (0/80/160/240ms) dos elementos do hero."
+      },
+      {
+        "name": "card-hover",
+        "value": "transform 300ms, box-shadow 300ms; foto: scale(1.05) em 700ms ease-out",
+        "purpose": "Card de item sobe e a foto aproxima."
+      },
+      {
+        "name": "whatsapp-pulso",
+        "value": "ping 2.5s × 3",
+        "purpose": "Chama atenção para o WhatsApp sem ficar piscando para sempre."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      },
+      {
+        "name": "xl",
+        "value": "1280px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "CTA principal",
+      "kind": "button",
+      "refersTo": "button-cta",
+      "description": "Ação principal do site (Ver imóveis, Fale conosco): pílula na cor da marca.",
+      "html": "<a class=\"ds-btn-cta\" href=\"#\">Ver imóveis <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></a>",
+      "css": ".ds-btn-cta { font-family: Inter, ui-sans-serif, system-ui, sans-serif; display: inline-flex; align-items: center; gap: 8px; background: var(--marca, #1d4ed8); color: var(--marca-contraste, #fff); padding: 16px 28px; border-radius: 9999px; font-size: 1rem; font-weight: 600; text-decoration: none; box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.25); transition: filter .15s, transform .15s; } .ds-btn-cta:hover { filter: brightness(1.1); } .ds-btn-cta:active { transform: translateY(1px); } .ds-btn-cta:focus-visible { outline: 3px solid var(--marca-forte, #1d4ed8); outline-offset: 2px; }"
+    },
+    {
+      "name": "CTA fantasma sobre foto",
+      "kind": "button",
+      "refersTo": "button-cta-hero-ghost",
+      "description": "Ação secundária sobre a foto do hero (Chamar no WhatsApp): vidro com anel branco.",
+      "html": "<div class=\"ds-hero-bg\"><a class=\"ds-btn-ghost\" href=\"#\">Chamar no WhatsApp</a></div>",
+      "css": ".ds-hero-bg { background: linear-gradient(135deg, #0f1f4d, #1d4ed8); padding: 24px; border-radius: 22px; } .ds-btn-ghost { font-family: Inter, ui-sans-serif, system-ui, sans-serif; display: inline-flex; align-items: center; gap: 8px; background: rgb(255 255 255 / .1); color: #fff; padding: 16px 28px; border-radius: 9999px; font-weight: 600; text-decoration: none; box-shadow: inset 0 0 0 1px rgb(255 255 255 / .4); backdrop-filter: blur(8px); transition: background .15s; } .ds-btn-ghost:hover { background: rgb(255 255 255 / .2); } .ds-btn-ghost:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }"
+    },
+    {
+      "name": "Selo de destaque e categoria",
+      "kind": "chip",
+      "refersTo": "chip-destaque",
+      "description": "Selos sobre a foto do card: categoria em vidro branco, destaque na segunda cor do cliente.",
+      "html": "<div class=\"ds-chips\"><span class=\"ds-chip-cat\">Casas</span><span class=\"ds-chip-dest\">Destaque</span></div>",
+      "css": ".ds-chips { display: flex; gap: 8px; padding: 12px; background: #94a3b8; border-radius: 18px; } .ds-chip-cat, .ds-chip-dest { font-family: Inter, ui-sans-serif, system-ui, sans-serif; font-size: .75rem; font-weight: 600; padding: 4px 12px; border-radius: 9999px; box-shadow: 0 1px 2px rgb(0 0 0 / .05); } .ds-chip-cat { background: rgb(255 255 255 / .95); color: #171717; } .ds-chip-dest { background: var(--destaque, #0f172a); color: var(--destaque-contraste, #fff); }"
+    },
+    {
+      "name": "Card de item",
+      "kind": "card",
+      "refersTo": "card-item",
+      "description": "Card com foto 4:3, atributos com ícone, preço na fonte de título e link esticado; sobe no hover.",
+      "html": "<article class=\"ds-card\"><div class=\"ds-card-foto\"></div><div class=\"ds-card-corpo\"><h3 class=\"ds-card-titulo\">Casa térrea com quintal</h3><p class=\"ds-card-attrs\">3 quartos · 180 m² · Campeche</p><div class=\"ds-card-rodape\"><span class=\"ds-card-preco\">R$ 890.000</span><a class=\"ds-card-link\" href=\"#\">Ver detalhes →</a></div></div></article>",
+      "css": ".ds-card { font-family: Inter, ui-sans-serif, system-ui, sans-serif; width: 300px; background: #fff; border-radius: 18px; overflow: hidden; box-shadow: 0 1px 2px rgb(0 0 0 / .05), 0 0 0 1px rgb(0 0 0 / .05); transition: transform .3s, box-shadow .3s; } .ds-card:hover { transform: translateY(-4px); box-shadow: 0 20px 25px -5px rgb(0 0 0 / .1), 0 0 0 1px rgb(0 0 0 / .05); } .ds-card-foto { aspect-ratio: 4/3; background: linear-gradient(135deg, var(--marca-suave, #e8edfb), #cbd5e1); } .ds-card-corpo { padding: 20px; display: flex; flex-direction: column; gap: 16px; } .ds-card-titulo { font-family: 'Plus Jakarta Sans', Inter, sans-serif; margin: 0; font-size: 1.125rem; font-weight: 700; line-height: 1.375; color: #171717; } .ds-card-attrs { margin: 0; font-size: .875rem; color: #737373; } .ds-card-rodape { display: flex; justify-content: space-between; align-items: flex-end; border-top: 1px solid #e5e5e5; padding-top: 16px; } .ds-card-preco { font-family: 'Plus Jakarta Sans', Inter, sans-serif; font-size: 1.25rem; font-weight: 800; color: var(--marca-forte, #1d4ed8); } .ds-card-link { font-size: .875rem; font-weight: 600; color: rgb(23 23 23 / .7); text-decoration: none; } .ds-card:hover .ds-card-link { color: var(--marca-forte, #1d4ed8); } .ds-card-link:focus-visible { outline: 3px solid var(--marca-forte, #1d4ed8); outline-offset: 2px; }"
+    },
+    {
+      "name": "Campo do painel",
+      "kind": "input",
+      "refersTo": "painel-input",
+      "description": "Campo de formulário do painel (shadcn): 40px, borda clara, foco na marca forte.",
+      "html": "<label class=\"ds-field\"><span>Título</span><input class=\"ds-input\" placeholder=\"Ex.: Apartamento 3 quartos\" /></label>",
+      "css": ".ds-field { font-family: Inter, ui-sans-serif, system-ui, sans-serif; display: grid; gap: 6px; font-size: .875rem; font-weight: 500; color: #171717; width: 280px; } .ds-input { font-family: Inter, ui-sans-serif, system-ui, sans-serif; height: 40px; padding: 4px 10px; border: 1px solid #e5e5e5; border-radius: 10px; background: #fff; font-size: .875rem; outline: none; transition: border-color .15s, box-shadow .15s; } .ds-input::placeholder { color: #737373; } .ds-input:focus-visible { border-color: var(--marca-forte, #1d4ed8); box-shadow: 0 0 0 3px color-mix(in oklch, var(--marca-forte, #1d4ed8) 50%, transparent); }"
+    },
+    {
+      "name": "Navegação do site",
+      "kind": "nav",
+      "refersTo": "button-nav-cta",
+      "description": "Cabeçalho em vidro: links em pílula com hover suave na marca e CTA de WhatsApp.",
+      "html": "<nav class=\"ds-nav\"><a href=\"#\">Início</a><a href=\"#\" aria-current=\"page\">Imóveis</a><a href=\"#\">Contato</a><a class=\"ds-nav-cta\" href=\"#\">Fale conosco</a></nav>",
+      "css": ".ds-nav { font-family: Inter, ui-sans-serif, system-ui, sans-serif; display: flex; align-items: center; gap: 4px; padding: 12px 16px; background: rgb(255 255 255 / .85); backdrop-filter: blur(12px); border-bottom: 1px solid rgb(0 0 0 / .05); } .ds-nav a { padding: 8px 16px; border-radius: 9999px; font-size: .875rem; font-weight: 500; color: rgb(23 23 23 / .75); text-decoration: none; transition: background .15s, color .15s; } .ds-nav a:hover, .ds-nav a[aria-current] { background: var(--marca-suave, #e8edfb); color: var(--marca-forte, #1d4ed8); } .ds-nav a.ds-nav-cta { margin-left: 8px; padding: 10px 20px; background: var(--marca, #1d4ed8); color: var(--marca-contraste, #fff); font-weight: 600; } .ds-nav a.ds-nav-cta:hover { filter: brightness(1.1); background: var(--marca, #1d4ed8); color: var(--marca-contraste, #fff); } .ds-nav a:focus-visible { outline: 3px solid var(--marca-forte, #1d4ed8); outline-offset: 2px; }"
+    },
+    {
+      "name": "Botão flutuante do WhatsApp",
+      "kind": "custom",
+      "refersTo": "button-whatsapp-float",
+      "description": "Atalho fixo para o WhatsApp com mensagem pronta; pulso discreto que para após 3 repetições.",
+      "html": "<a class=\"ds-whats\" href=\"#\" aria-label=\"Conversar no WhatsApp\"><svg width=\"28\" height=\"28\" viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.2.1-.1 0-.3 0-.4l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7a2.8 2.8 0 0 0 1.8-1.3 2.3 2.3 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3Z\"/></svg></a>",
+      "css": ".ds-whats { display: inline-grid; place-items: center; padding: 14px; border-radius: 9999px; background: #25D366; color: #05301a; box-shadow: 0 10px 15px -3px rgb(0 0 0 / .2); transition: transform .15s, box-shadow .15s; } .ds-whats:hover { transform: translateY(-2px); box-shadow: 0 20px 25px -5px rgb(0 0 0 / .2); } .ds-whats:focus-visible { outline: 3px solid #05301a; outline-offset: 2px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "A Vitrine Iluminada",
+    "overview": "O template é o vidro e a luz da vitrine; o que fica exposto é sempre do cliente: as fotos dos itens, o nome e as duas cores do negócio. A estrutura é neutra, quente e bem iluminada (um fundo de papel levemente aquecido, superfícies brancas, sombras suaves), para que qualquer identidade pareça bem apresentada sem brigar com ela. Uma imobiliária azul-petróleo com títulos serifados e um guincho amarelo com títulos sans saem do mesmo código só por configuração.\n\nO site público é acolhedor e confiante: hero de tela quase cheia com foto e gradiente, CTAs em pílula grandes, cards com foto que sobem levemente no hover, e um caminho para o WhatsApp sempre à vista. O painel, usado pelo dono no celular, herda a cor da marca mas fala a língua precisa das ferramentas de trabalho (componentes shadcn, raios menores, densidade maior).\n\nA anti-referência é o template genérico: tema pronto de WordPress ou landing feita por IA, com gradientes roxos, ícones em círculos coloridos, seções idênticas empilhadas e texto vazio. Se uma tela nova poderia ser de qualquer site, ela ainda não é da Vitrine.",
+    "keyCharacteristics": [
+      "A cor vem do cliente; o sistema só define papéis (`marca`, `destaque`) e calcula as variações.",
+      "Contraste garantido por cálculo (WCAG 4,5:1), nunca por escolha manual.",
+      "Foto real como protagonista: hero, cards 4:3, galeria.",
+      "Pílulas e cantos generosos no site; cantos contidos no painel.",
+      "Profundidade por luz suave (sombra difusa + anel de 1px), nunca por bordas pesadas."
+    ],
+    "rules": [
+      {
+        "name": "The Calculated Contrast Rule",
+        "body": "Nenhuma combinação texto/fundo usa a cor do cliente sem passar por `corDoTexto()` ou `ajustarParaContraste()`. Texto na cor da marca é sempre `marca-forte`, nunca `marca`.",
+        "section": "colors"
+      },
+      {
+        "name": "The Client Owns The Color Rule",
+        "body": "O template não introduz cores próprias de destaque. Fora de `marca`/`destaque`, só neutros, o verde do WhatsApp e o vermelho de perigo.",
+        "section": "colors"
+      },
+      {
+        "name": "The One Voice Rule",
+        "body": "Só `h1`–`h3` e preços usam a fonte de título. Botões, navegação, formulários e textos corridos ficam em Inter.",
+        "section": "typography"
+      },
+      {
+        "name": "The Soft Light Rule",
+        "body": "Nada de bordas escuras ou sombras duras. Separação é anel de 1px a 5% e sombra difusa; divisores internos usam `linha`.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** passar toda cor do cliente por `variaveisDoTema()` e usar os papéis (`marca`, `marca-forte`, `destaque`...), nunca o hex direto.",
+      "**Do** usar `marca-forte` para qualquer texto, ícone ou link na cor do cliente sobre fundo claro.",
+      "**Do** manter um caminho para o WhatsApp ou para o contato visível em toda tela pública.",
+      "**Do** usar foto real em proporção fixa (4:3) e `object-cover`; sem foto, placeholder em `marca-suave` com ícone.",
+      "**Do** testar cada tela nova com as duas demos (azul-petróleo/serifa e amarelo/sans).",
+      "**Do** usar a animação de entrada `surgir` (0,6s, `cubic-bezier(0.22, 1, 0.36, 1)`) só no hero e respeitar `prefers-reduced-motion`."
+    ],
+    "donts": [
+      "**Don't** parecer template genérico: nada de gradientes roxos, ícones em círculos coloridos decorativos, seções idênticas empilhadas ou texto de preenchimento.",
+      "**Don't** escrever texto pequeno em `marca` (o amarelo do guincho fica ilegível); use `marca-forte`.",
+      "**Don't** introduzir uma terceira cor de destaque ou paleta própria do template.",
+      "**Don't** usar a fonte de título em botões, navegação ou formulários.",
+      "**Don't** usar bordas escuras ou sombras duras para separar blocos.",
+      "**Don't** colocar a marca \"Vitrine\" nas telas do cliente; o site é sempre do negócio."
+    ]
+  }
+}

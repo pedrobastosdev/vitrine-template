@@ -10,3 +10,4 @@ dist/
 coverage/
 *.tsbuildinfo
 api/src/generated/
+.playwright-mcp/
