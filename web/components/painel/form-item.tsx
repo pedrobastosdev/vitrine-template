@@ -159,7 +159,7 @@ export function FormItem({ id, valores, categorias, sugestoes }: Props) {
         <CardContent className="space-y-4">
           {([
             ['ativo', 'Mostrar no site', 'Desligado, o item fica salvo só aqui no painel.'],
-            ['destaque', 'Destacar na página inicial', 'Aparece na seção "Destaques" da home.'],
+            ['destaque', 'Destacar na página inicial', 'Aparece na seção "Em destaque" da home.'],
           ] as const).map(([nome, rotulo, ajuda]) => (
             <Controller
               key={nome}

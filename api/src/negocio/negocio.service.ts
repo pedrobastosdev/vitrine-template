@@ -29,11 +29,18 @@ export class NegocioService {
     return publico;
   }
 
-  async atualizar(dto: AtualizarNegocioDto) {
+  async atualizar({ fatos, ...resto }: AtualizarNegocioDto) {
+    // Objetos simples: o Prisma grava o JSON, não as instâncias do DTO
+    const dados = {
+      ...resto,
+      ...(fatos && {
+        fatos: fatos.map(({ rotulo, valor }) => ({ rotulo, valor })),
+      }),
+    };
     await this.prisma.negocio.upsert({
       where: { id: ID_NEGOCIO },
-      create: Object.assign({ id: ID_NEGOCIO }, dto),
-      update: Object.assign({}, dto),
+      create: { id: ID_NEGOCIO, ...dados },
+      update: dados,
     });
     this.revalidacao.revalidar(TAGS.negocio);
     return this.obter();

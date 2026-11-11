@@ -19,7 +19,7 @@ export function Marca({ negocio, claro = false, quebrar = false }: { negocio: Ne
         </span>
       )}
       <span
-        className={`${quebrar ? 'line-clamp-2 text-base' : 'truncate text-lg'} font-heading leading-tight font-bold ${claro ? 'text-white' : 'text-foreground'}`}
+        className={`${quebrar ? 'line-clamp-2 text-base' : 'max-sm:line-clamp-2 max-sm:text-base sm:truncate sm:text-lg'} font-heading leading-tight font-bold ${claro ? 'text-white' : 'text-foreground'}`}
       >
         {negocio.nome}
       </span>

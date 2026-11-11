@@ -15,6 +15,15 @@ export const dados: DadosSeed = {
     cidade: 'Florianópolis - SC',
     instagram: 'moradaclara.exemplo',
     rotuloItens: 'Imóveis',
+    rotuloItem: 'imóvel',
+    acaoPrincipal: 'whatsapp',
+    ctaItem: 'Agendar visita',
+    fatos: [
+      { rotulo: 'Experiência', valor: 'Mais de 15 anos na Ilha' },
+      { rotulo: 'Visitas', valor: 'Acompanhadas por um corretor' },
+      { rotulo: 'Documentação', valor: 'Cuidamos de tudo para você' },
+      { rotulo: 'Atendimento', valor: 'Do primeiro contato às chaves' },
+    ],
     heroTitulo: 'O lugar certo para a próxima fase da sua vida',
     heroSubtitulo:
       'Casas e apartamentos escolhidos a dedo na Ilha da Magia, com atendimento de quem conhece cada bairro.',

@@ -93,6 +93,10 @@ model Negocio {
   cidade        String   @default("")
   instagram     String   @default("")
   rotuloItens   String   @default("Itens") // ex.: "Imóveis", "Serviços"
+  rotuloItem    String   @default("item") // singular: "imóvel", "serviço"
+  acaoPrincipal String   @default("whatsapp") // "whatsapp" | "ligar" | "catalogo"
+  ctaItem       String   @default("Tenho interesse")
+  fatos         Json     @default("[]") // até 4 { rotulo, valor }
   heroTitulo    String   @default("")
   heroSubtitulo String   @default("")
   heroImagemUrl String?

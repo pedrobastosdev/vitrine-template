@@ -7,15 +7,16 @@ import { Compartilhar } from '@/components/site/compartilhar';
 import { AvisoIndisponivel } from '@/components/site/estados';
 import { Galeria } from '@/components/site/galeria';
 import { IconeAtributo } from '@/components/site/icone-atributo';
-import { IconeWhatsApp } from '@/components/site/icones';
+import { IconeAcao, LinkAcao } from '@/components/site/acao-contato';
 import { MensagemWhatsApp } from '@/components/site/whatsapp-contexto';
 import { obterItem, obterItens, obterSlugs } from '@/lib/api-publica';
 import { SITE_URL } from '@/lib/config';
+import { acoesContato, canalPrincipal } from '@/lib/contato';
 import { formatarPreco, resumir } from '@/lib/formato';
 import { negocioOuPadrao } from '@/lib/negocio';
 import { imagemOg } from '@/lib/og';
 import type { ItemCompleto } from '@/lib/tipos';
-import { linkWhatsApp, mensagemInteresse } from '@/lib/whatsapp';
+import { mensagemInteresse } from '@/lib/whatsapp';
 
 // Sem itens (ou com a API fora do ar no build), prerenderiza só este marcador,
 // que responde "não encontrado". Cache Components exige ao menos um parâmetro.
@@ -76,6 +77,9 @@ async function Detalhe({ params }: { params: PageProps<'/[slug]'>['params'] }) {
 
   const item = r.dados;
   const mensagem = mensagemInteresse(item.titulo);
+  // Canais de conversa na ordem do dono; o primeiro leva o texto do botão do item
+  const [principal, outro] = acoesContato(negocio, mensagem).filter((a) => a.tipo !== 'catalogo');
+  const tipoPrincipal = canalPrincipal(negocio);
   const fotos = item.imagens.map(({ id, url }) => ({ id, url }));
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -92,7 +96,7 @@ async function Detalhe({ params }: { params: PageProps<'/[slug]'>['params'] }) {
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-      <MensagemWhatsApp mensagem={mensagem} />
+      <MensagemWhatsApp mensagem={mensagem} barra={!!principal} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }} />
 
       <nav aria-label="Você está em" className="mb-6 text-sm text-muted-foreground">
@@ -110,7 +114,7 @@ async function Detalhe({ params }: { params: PageProps<'/[slug]'>['params'] }) {
           <Galeria fotos={fotos} titulo={item.titulo} />
           {item.descricao && (
             <section aria-labelledby="descricao" className="mt-10 hidden lg:block">
-              <h2 id="descricao" className="font-heading text-2xl font-bold">Sobre este item</h2>
+              <h2 id="descricao" className="font-heading text-2xl font-bold">Descrição</h2>
               <p className="mt-4 text-lg leading-relaxed whitespace-pre-line text-foreground/80">{item.descricao}</p>
             </section>
           )}
@@ -144,22 +148,31 @@ async function Detalhe({ params }: { params: PageProps<'/[slug]'>['params'] }) {
             )}
 
             <div className="mt-8 flex flex-col gap-3 rounded-3xl bg-white p-5 shadow-sm ring-1 ring-black/5">
-              {negocio.whatsapp && (
-                <a
-                  href={linkWhatsApp(negocio.whatsapp, mensagem)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 rounded-full bg-marca px-6 py-4 text-base font-semibold text-marca-contraste shadow-md transition hover:brightness-110"
+              {principal && (
+                <LinkAcao
+                  acao={principal}
+                  className="rounded-full bg-marca px-6 py-4 text-base font-semibold text-marca-contraste shadow-md transition hover:brightness-110"
                 >
-                  <IconeWhatsApp className="size-5" /> Tenho interesse
-                </a>
+                  {negocio.ctaItem}
+                </LinkAcao>
               )}
-              <Link
-                href={`/contato?item=${item.slug}`}
-                className="inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 font-semibold ring-1 ring-black/10 transition hover:ring-marca hover:text-marca-forte"
-              >
-                <MessageSquare className="size-4" aria-hidden /> Enviar mensagem
-              </Link>
+              <div className={outro ? 'grid grid-cols-2 gap-3' : 'grid'}>
+                {outro && (
+                  <LinkAcao
+                    acao={outro}
+                    iconeClassName="size-4"
+                    className="rounded-full px-4 py-3.5 font-semibold ring-1 ring-black/10 transition hover:text-marca-forte hover:ring-marca"
+                  >
+                    {outro.tipo === 'ligar' ? 'Ligar' : 'WhatsApp'}
+                  </LinkAcao>
+                )}
+                <Link
+                  href={`/contato?item=${item.slug}`}
+                  className="inline-flex items-center justify-center gap-2 rounded-full px-4 py-3.5 font-semibold ring-1 ring-black/10 transition hover:text-marca-forte hover:ring-marca"
+                >
+                  <MessageSquare className="size-4" aria-hidden /> Mensagem
+                </Link>
+              </div>
               <Compartilhar titulo={item.titulo} />
             </div>
           </div>
@@ -167,13 +180,40 @@ async function Detalhe({ params }: { params: PageProps<'/[slug]'>['params'] }) {
 
         {item.descricao && (
           <section aria-labelledby="descricao-m" className="lg:hidden">
-            <h2 id="descricao-m" className="font-heading text-2xl font-bold">Sobre este item</h2>
+            <h2 id="descricao-m" className="font-heading text-2xl font-bold">Descrição</h2>
             <p className="mt-4 text-lg leading-relaxed whitespace-pre-line text-foreground/80">{item.descricao}</p>
           </section>
         )}
       </div>
 
       <Relacionados item={item} />
+
+      {/* Celular: o contato fica sempre ao alcance do polegar */}
+      {principal && tipoPrincipal && (
+        <div
+          data-barra-contato
+          className="fixed inset-x-0 bottom-0 z-40 border-t border-black/5 bg-white/90 px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur-md lg:hidden"
+        >
+          <div className="mx-auto flex max-w-xl gap-2">
+            <LinkAcao
+              acao={principal}
+              className="min-h-12 flex-1 rounded-full bg-marca px-5 text-base font-semibold text-marca-contraste shadow-md"
+            >
+              <span className="truncate">{negocio.ctaItem}</span>
+            </LinkAcao>
+            {outro && (
+              <a
+                href={outro.href}
+                {...(outro.externo && { target: '_blank', rel: 'noopener noreferrer' })}
+                aria-label={outro.tipo === 'ligar' ? `Ligar para ${negocio.nome}` : `Chamar ${negocio.nome} no WhatsApp`}
+                className="grid size-12 shrink-0 place-items-center rounded-full ring-1 ring-black/10"
+              >
+                <IconeAcao tipo={outro.tipo} className="size-5" />
+              </a>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

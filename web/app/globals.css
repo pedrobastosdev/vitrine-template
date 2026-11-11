@@ -164,6 +164,13 @@
     outline: 3px solid var(--marca-forte);
     outline-offset: 2px;
   }
+  /* A barra de contato fixa do celular não pode cobrir o fim da página (rodapé) */
+  @media (width < 64rem) {
+    body:has([data-barra-contato]) {
+      padding-bottom: calc(4.75rem + env(safe-area-inset-bottom));
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
       animation-duration: 0.01ms !important;

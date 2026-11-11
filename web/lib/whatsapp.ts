@@ -5,4 +5,4 @@ export function linkWhatsApp(numero: string, mensagem?: string): string {
   return `https://wa.me/${digitos}${texto}`;
 }
 
-export const mensagemInteresse = (titulo: string) => `Olá! Tenho interesse no item "${titulo}".`;
+export const mensagemInteresse = (titulo: string) => `Olá! Vi "${titulo}" no site e gostaria de mais informações.`;

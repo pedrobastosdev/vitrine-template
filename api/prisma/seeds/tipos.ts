@@ -28,6 +28,10 @@ export interface DadosSeed {
     cidade: string;
     instagram: string;
     rotuloItens: string;
+    rotuloItem: string;
+    acaoPrincipal: 'whatsapp' | 'ligar' | 'catalogo';
+    ctaItem: string;
+    fatos: { rotulo: string; valor: string }[];
     heroTitulo: string;
     heroSubtitulo: string;
     heroFoto: FotoSeed;

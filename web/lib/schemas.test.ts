@@ -55,6 +55,10 @@ describe('negocioSchema', () => {
     cidade: '',
     instagram: '@loja.oficial',
     rotuloItens: 'Produtos',
+    rotuloItem: 'produto',
+    acaoPrincipal: 'whatsapp',
+    ctaItem: 'Tenho interesse',
+    fatos: [{ rotulo: 'Entrega', valor: 'Em toda a cidade' }],
     heroTitulo: '',
     heroSubtitulo: '',
     sobreTitulo: '',
@@ -70,6 +74,15 @@ describe('negocioSchema', () => {
   it('recusa cor fora do formato e WhatsApp sem DDI', () => {
     expect(negocioSchema.safeParse({ ...base, corPrimaria: 'red' }).success).toBe(false);
     expect(negocioSchema.safeParse({ ...base, whatsapp: '48999990000' }).success).toBe(false);
+  });
+
+  it('limita os destaques a 4 e o botão do item a 24 caracteres', () => {
+    const fato = { rotulo: 'A', valor: 'B' };
+    expect(negocioSchema.safeParse({ ...base, fatos: Array(4).fill(fato) }).success).toBe(true);
+    expect(negocioSchema.safeParse({ ...base, fatos: Array(5).fill(fato) }).success).toBe(false);
+    expect(negocioSchema.safeParse({ ...base, fatos: [{ rotulo: ' ', valor: 'B' }] }).success).toBe(false);
+    expect(negocioSchema.safeParse({ ...base, ctaItem: 'x'.repeat(25) }).success).toBe(false);
+    expect(negocioSchema.safeParse({ ...base, acaoPrincipal: 'email' }).success).toBe(false);
   });
 });
 

@@ -20,7 +20,7 @@ describe('resumir', () => {
 describe('linkWhatsApp', () => {
   it('monta o link wa.me só com dígitos e mensagem codificada', () => {
     expect(linkWhatsApp('+55 (48) 90000-0000', mensagemInteresse('Casa & Jardim'))).toBe(
-      'https://wa.me/5548900000000?text=Ol%C3%A1!%20Tenho%20interesse%20no%20item%20%22Casa%20%26%20Jardim%22.',
+      'https://wa.me/5548900000000?text=Ol%C3%A1!%20Vi%20%22Casa%20%26%20Jardim%22%20no%20site%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es.',
     );
   });
 });

@@ -1,3 +1,10 @@
+export type AcaoPrincipal = 'whatsapp' | 'ligar' | 'catalogo';
+
+export interface Fato {
+  rotulo: string;
+  valor: string;
+}
+
 export interface Negocio {
   id: number;
   nome: string;
@@ -13,6 +20,10 @@ export interface Negocio {
   cidade: string;
   instagram: string;
   rotuloItens: string;
+  rotuloItem: string;
+  acaoPrincipal: AcaoPrincipal;
+  ctaItem: string;
+  fatos: Fato[];
   heroTitulo: string;
   heroSubtitulo: string;
   heroImagemUrl: string | null;

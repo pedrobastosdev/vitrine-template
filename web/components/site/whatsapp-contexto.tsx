@@ -2,24 +2,30 @@
 
 import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
 
-const Contexto = createContext<{
+interface Estado {
   mensagem: string | null;
-  definir: (m: string | null) => void;
-}>({ mensagem: null, definir: () => {} });
-
-export function WhatsAppProvider({ children }: { children: ReactNode }) {
-  const [mensagem, definir] = useState<string | null>(null);
-  return <Contexto.Provider value={{ mensagem, definir }}>{children}</Contexto.Provider>;
+  /** A página tem a própria barra de contato no celular; o botão flutuante sai do caminho. */
+  barra: boolean;
 }
 
-export const useMensagemWhatsApp = () => useContext(Contexto);
+const Contexto = createContext<{ estado: Estado; definir: (e: Estado) => void }>({
+  estado: { mensagem: null, barra: false },
+  definir: () => {},
+});
+
+export function WhatsAppProvider({ children }: { children: ReactNode }) {
+  const [estado, definir] = useState<Estado>({ mensagem: null, barra: false });
+  return <Contexto.Provider value={{ estado, definir }}>{children}</Contexto.Provider>;
+}
+
+export const useMensagemWhatsApp = () => useContext(Contexto).estado;
 
 /** Coloque numa página para o botão flutuante usar uma mensagem específica. */
-export function MensagemWhatsApp({ mensagem }: { mensagem: string }) {
-  const { definir } = useMensagemWhatsApp();
+export function MensagemWhatsApp({ mensagem, barra = false }: { mensagem: string; barra?: boolean }) {
+  const { definir } = useContext(Contexto);
   useEffect(() => {
-    definir(mensagem);
-    return () => definir(null);
-  }, [mensagem, definir]);
+    definir({ mensagem, barra });
+    return () => definir({ mensagem: null, barra: false });
+  }, [mensagem, barra, definir]);
   return null;
 }

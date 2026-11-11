@@ -3,8 +3,10 @@
 import { Menu, X } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import type { Acao } from '@/lib/contato';
+import { LinkAcao } from './acao-contato';
 
-export function MenuCelular({ links }: { links: { href: string; rotulo: string }[] }) {
+export function MenuCelular({ links, canais }: { links: { href: string; rotulo: string }[]; canais: Acao[] }) {
   const [aberto, setAberto] = useState(false);
 
   useEffect(() => {
@@ -15,7 +17,7 @@ export function MenuCelular({ links }: { links: { href: string; rotulo: string }
   }, [aberto]);
 
   return (
-    <div className="md:hidden">
+    <div>
       <button
         type="button"
         onClick={() => setAberto((a) => !a)}
@@ -45,6 +47,23 @@ export function MenuCelular({ links }: { links: { href: string; rotulo: string }
               </li>
             ))}
           </ul>
+          {canais.length > 0 && (
+            <div className="mt-4 grid gap-2 border-t border-black/5 pt-4 min-[380px]:grid-cols-2">
+              {canais.map((c, i) => (
+                <LinkAcao
+                  key={c.tipo}
+                  acao={c}
+                  className={
+                    i === 0
+                      ? 'min-h-12 rounded-full bg-marca px-4 font-semibold text-marca-contraste'
+                      : 'min-h-12 rounded-full px-4 font-semibold ring-1 ring-black/10'
+                  }
+                >
+                  {c.tipo === 'ligar' ? 'Ligar' : 'WhatsApp'}
+                </LinkAcao>
+              ))}
+            </div>
+          )}
         </nav>
       )}
     </div>

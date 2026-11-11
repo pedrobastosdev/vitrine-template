@@ -15,9 +15,18 @@ export const dados: DadosSeed = {
     cidade: 'Curitiba - PR',
     instagram: 'reboqueagil.exemplo',
     rotuloItens: 'Serviços',
+    rotuloItem: 'serviço',
+    acaoPrincipal: 'ligar',
+    ctaItem: 'Chamar guincho',
+    fatos: [
+      { rotulo: 'Atendimento', valor: '24 horas, inclusive feriados' },
+      { rotulo: 'Chegada média', valor: '40 minutos em Curitiba' },
+      { rotulo: 'Região', valor: 'Curitiba, região e rodovias' },
+      { rotulo: 'Preço', valor: 'Combinado antes de sair' },
+    ],
     heroTitulo: 'Seu carro parou? A gente chega rápido.',
     heroSubtitulo:
-      'Guincho 24 horas para carros, motos, utilitários e caminhões em Curitiba e região metropolitana. Chame no WhatsApp e receba a localização do motorista.',
+      'Guincho 24 horas para carros, motos, utilitários e caminhões em Curitiba e região metropolitana. Ligue ou chame no WhatsApp e acompanhe a chegada do motorista.',
     heroFoto: { unsplash: '1730514785075-b065c757b653', autor: 'fr0ggy5' },
     sobreTitulo:
       'Equipe própria, frota rastreada e preço combinado antes de sair',

@@ -69,6 +69,11 @@ export type ItemForm = z.infer<typeof itemSchema>;
 
 const corHex = z.string().regex(/^#[0-9a-fA-F]{6}$/, 'Use o formato #RRGGBB');
 
+const fatoSchema = z.object({
+  rotulo: texto(1, 30, 'o título do destaque'),
+  valor: texto(1, 60, 'o texto do destaque'),
+});
+
 export const negocioSchema = z.object({
   nome: texto(2, 80, 'O nome'),
   slogan: z.string().trim().max(120),
@@ -89,6 +94,10 @@ export const negocioSchema = z.object({
     .transform((v) => v.replace(/^@/, ''))
     .pipe(z.string().regex(/^[\w.]{0,30}$/, 'Só o usuário, sem @ e sem link')),
   rotuloItens: texto(2, 30, 'O nome do catálogo'),
+  rotuloItem: texto(2, 30, 'O nome de um item'),
+  acaoPrincipal: z.enum(['whatsapp', 'ligar', 'catalogo']),
+  ctaItem: texto(2, 24, 'O texto do botão'),
+  fatos: z.array(fatoSchema).max(4, 'Use no máximo 4 destaques'),
   heroTitulo: z.string().trim().max(120),
   heroSubtitulo: z.string().trim().max(300),
   sobreTitulo: z.string().trim().max(120),

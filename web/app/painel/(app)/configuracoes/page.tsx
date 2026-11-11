@@ -4,13 +4,14 @@ import { CabecalhoPagina, SkeletonLista } from '@/components/painel/comum';
 import { FormNegocio } from '@/components/painel/form-negocio';
 import { UploadImagemNegocio } from '@/components/painel/upload-imagem-negocio';
 import { api } from '@/lib/sessao';
+import { NEGOCIO_PADRAO } from '@/lib/negocio-padrao';
 import type { Negocio } from '@/lib/tipos';
 
 export const metadata: Metadata = { title: 'Configurações' };
 
 async function Conteudo() {
   // Busca sem cache: o painel precisa sempre do valor mais recente
-  const n = await api<Negocio>('/negocio');
+  const n = { ...NEGOCIO_PADRAO, ...(await api<Negocio>('/negocio')) };
   return (
     <FormNegocio
       valores={{
@@ -26,6 +27,10 @@ async function Conteudo() {
         cidade: n.cidade,
         instagram: n.instagram,
         rotuloItens: n.rotuloItens,
+        rotuloItem: n.rotuloItem,
+        acaoPrincipal: n.acaoPrincipal,
+        ctaItem: n.ctaItem,
+        fatos: n.fatos,
         heroTitulo: n.heroTitulo,
         heroSubtitulo: n.heroSubtitulo,
         sobreTitulo: n.sobreTitulo,

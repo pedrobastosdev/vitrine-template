@@ -1,5 +1,8 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
 import {
+  ArrayMaxSize,
+  IsArray,
   IsEmail,
   IsIn,
   IsOptional,
@@ -8,9 +11,28 @@ import {
   MaxLength,
   MinLength,
   ValidateIf,
+  ValidateNested,
 } from 'class-validator';
 
 const HEX = /^#[0-9a-fA-F]{6}$/;
+
+export const ACOES_PRINCIPAIS = ['whatsapp', 'ligar', 'catalogo'] as const;
+export type AcaoPrincipal = (typeof ACOES_PRINCIPAIS)[number];
+
+/** Um fato curto sobre o negócio, mostrado na home (ex.: "Atendimento" / "24h"). */
+export class FatoDto {
+  @ApiProperty({ example: 'Atendimento' })
+  @IsString()
+  @MinLength(1)
+  @MaxLength(30)
+  rotulo: string;
+
+  @ApiProperty({ example: '24 horas, todos os dias' })
+  @IsString()
+  @MinLength(1)
+  @MaxLength(60)
+  valor: string;
+}
 
 export class AtualizarNegocioDto {
   @ApiProperty({ example: 'Morada Clara Imóveis' })
@@ -106,4 +128,43 @@ export class AtualizarNegocioDto {
   @IsString()
   @MaxLength(1500)
   sobreTexto?: string;
+
+  @ApiPropertyOptional({
+    example: 'imóvel',
+    description: 'Nome de um item, no singular',
+  })
+  @IsOptional()
+  @IsString()
+  @MinLength(2)
+  @MaxLength(30)
+  rotuloItem?: string;
+
+  @ApiPropertyOptional({
+    enum: ACOES_PRINCIPAIS,
+    description: 'Botão mais forte do site. "ligar" exige telefone.',
+  })
+  @IsOptional()
+  @IsIn(ACOES_PRINCIPAIS)
+  acaoPrincipal?: AcaoPrincipal;
+
+  @ApiPropertyOptional({
+    example: 'Agendar visita',
+    description: 'Botão da página do item',
+  })
+  @IsOptional()
+  @IsString()
+  @MinLength(2)
+  @MaxLength(24)
+  ctaItem?: string;
+
+  @ApiPropertyOptional({
+    type: [FatoDto],
+    description: 'Até 4, na ordem de exibição',
+  })
+  @IsOptional()
+  @IsArray()
+  @ArrayMaxSize(4)
+  @ValidateNested({ each: true })
+  @Type(() => FatoDto)
+  fatos?: FatoDto[];
 }

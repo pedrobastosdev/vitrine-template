@@ -1,7 +1,7 @@
 import Link from 'next/link';
+import { acoesContato, canalPrincipal } from '@/lib/contato';
 import type { Negocio } from '@/lib/tipos';
-import { linkWhatsApp } from '@/lib/whatsapp';
-import { IconeWhatsApp } from './icones';
+import { IconeAcao, LinkAcao } from './acao-contato';
 import { Marca } from './marca';
 import { MenuCelular } from './menu-celular';
 
@@ -11,6 +11,9 @@ export function Cabecalho({ negocio }: { negocio: Negocio }) {
     { href: '/itens', rotulo: negocio.rotuloItens },
     { href: '/contato', rotulo: 'Contato' },
   ];
+  const canais = acoesContato(negocio, `Olá, ${negocio.nome}! Vim pelo site.`).filter((a) => a.tipo !== 'catalogo');
+  const principal = canais.find((c) => c.tipo === canalPrincipal(negocio));
+
   return (
     <header className="sticky top-0 z-30 border-b border-black/5 bg-white/85 backdrop-blur-md supports-[backdrop-filter]:bg-white/70">
       <a
@@ -19,7 +22,7 @@ export function Cabecalho({ negocio }: { negocio: Negocio }) {
       >
         Pular para o conteúdo
       </a>
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-3 px-4 sm:px-6 lg:px-8">
         <Marca negocio={negocio} />
         <nav aria-label="Principal" className="hidden items-center gap-1 md:flex">
           {links.map((l) => (
@@ -31,19 +34,29 @@ export function Cabecalho({ negocio }: { negocio: Negocio }) {
               {l.rotulo}
             </Link>
           ))}
-          {negocio.whatsapp && (
-            <a
-              href={linkWhatsApp(negocio.whatsapp, `Olá, ${negocio.nome}! Vim pelo site.`)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="ml-2 inline-flex items-center gap-2 rounded-full bg-marca px-5 py-2.5 text-sm font-semibold text-marca-contraste shadow-sm transition hover:brightness-110"
+          {principal && (
+            <LinkAcao
+              acao={principal}
+              iconeClassName="size-4"
+              className="ml-2 rounded-full bg-marca px-5 py-2.5 text-sm font-semibold text-marca-contraste shadow-sm transition hover:brightness-110"
             >
-              <IconeWhatsApp className="size-4" />
-              Fale conosco
-            </a>
+              {principal.tipo === 'ligar' ? negocio.telefone : 'Fale conosco'}
+            </LinkAcao>
           )}
         </nav>
-        <MenuCelular links={links} />
+        <div className="flex items-center gap-1 md:hidden">
+          {principal && (
+            <a
+              href={principal.href}
+              {...(principal.externo && { target: '_blank', rel: 'noopener noreferrer' })}
+              aria-label={principal.tipo === 'ligar' ? `Ligar para ${negocio.nome}` : `Chamar ${negocio.nome} no WhatsApp`}
+              className="grid size-11 place-items-center rounded-full bg-marca text-marca-contraste shadow-sm transition active:scale-95"
+            >
+              <IconeAcao tipo={principal.tipo} className="size-5" />
+            </a>
+          )}
+          <MenuCelular links={links} canais={canais} />
+        </div>
       </div>
     </header>
   );

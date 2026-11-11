@@ -17,9 +17,11 @@ const campo =
 interface Props {
   item?: { id: number; titulo: string };
   whatsapp: string;
+  /** Nome de um item no singular ("imóvel", "serviço"). */
+  rotuloItem: string;
 }
 
-export function FormContato({ item, whatsapp }: Props) {
+export function FormContato({ item, whatsapp, rotuloItem }: Props) {
   const [enviado, setEnviado] = useState(false);
   const {
     register,
@@ -92,7 +94,7 @@ export function FormContato({ item, whatsapp }: Props) {
     <form onSubmit={handleSubmit(enviar)} noValidate className="space-y-5 rounded-3xl bg-white/60 p-6 shadow-sm ring-1 ring-black/5 sm:p-8">
       {item && (
         <p className="rounded-xl bg-marca-suave px-4 py-3 text-sm">
-          Sobre: <strong>{item.titulo}</strong>
+          <span className="first-letter:uppercase inline-block">{rotuloItem}</span>: <strong>{item.titulo}</strong>
         </p>
       )}
       <div>
