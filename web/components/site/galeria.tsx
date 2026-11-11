@@ -66,6 +66,8 @@ export function Galeria({ fotos, titulo }: { fotos: Foto[]; titulo: string }) {
   const { indice, irPara } = useIndiceVisivel(trilho);
   const tela = useIndiceVisivel(trilhoTela);
   const [zoom, setZoom] = useState(false);
+  // As fotos da tela cheia só existem com ela aberta: fechada, não ocupam banda nem medem 0px.
+  const [aberto, setAberto] = useState(false);
   // Só a primeira foto entra no carregamento inicial; as outras vêm depois, sem disputar banda com ela.
   const [todas, setTodas] = useState(false);
   useEffect(() => {
@@ -78,6 +80,7 @@ export function Galeria({ fotos, titulo }: { fotos: Foto[]; titulo: string }) {
 
   const abrir = (i: number) => {
     dialogo.current?.showModal();
+    setAberto(true);
     setZoom(false);
     requestAnimationFrame(() => tela.irPara(i, false));
   };
@@ -181,7 +184,10 @@ export function Galeria({ fotos, titulo }: { fotos: Foto[]; titulo: string }) {
 
       <dialog
         ref={dialogo}
-        onClose={() => setZoom(false)}
+        onClose={() => {
+          setZoom(false);
+          setAberto(false);
+        }}
         aria-label={`Fotos de ${titulo} em tela cheia`}
         className="m-0 h-dvh max-h-none w-screen max-w-none bg-black p-0 text-white backdrop:bg-black"
       >
@@ -227,7 +233,9 @@ export function Galeria({ fotos, titulo }: { fotos: Foto[]; titulo: string }) {
                 )}
                 onDoubleClick={() => setZoom((z) => !z)}
               >
-                <Image src={f.url} alt={alt(i)} fill sizes={zoom ? '200vw' : '100vw'} className="object-contain" />
+                {aberto && (
+                  <Image src={f.url} alt={alt(i)} fill sizes={zoom ? '200vw' : '100vw'} className="object-contain" />
+                )}
               </div>
             </div>
           ))}

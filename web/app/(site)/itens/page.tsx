@@ -67,8 +67,9 @@ async function Listagem({ searchParams, negocio }: { searchParams: PageProps<'/i
       )}
 
       <h2 className="sr-only">Resultados</h2>
-      <p className="mt-6 mb-6 text-sm text-muted-foreground" aria-live="polite">
-        {total} {total === 1 ? 'resultado' : 'resultados'}
+      {/* Sem resultados, o estado vazio já diz isso; o contador só repetiria "0" */}
+      <p className="mt-6 mb-6 min-h-5 text-sm text-muted-foreground" aria-live="polite">
+        {total > 0 && `${total} ${total === 1 ? 'resultado' : 'resultados'}`}
       </p>
 
       {itens.dados.itens.length === 0 ? (

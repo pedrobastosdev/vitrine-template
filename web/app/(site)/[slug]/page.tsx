@@ -22,6 +22,11 @@ import { mensagemInteresse } from '@/lib/whatsapp';
 // que responde "não encontrado". Cache Components exige ao menos um parâmetro.
 const SEM_ITENS = '__sem-itens';
 
+// Cada item já sai prerenderizado do build. Um item criado depois renderiza inteiro antes de
+// responder, sem esqueleto, para o Google receber o HTML completo; por isso a navegação
+// para cá pode bloquear e a validação de navegação instantânea fica desligada.
+export const instant = false;
+
 export async function generateStaticParams() {
   const r = await obterSlugs();
   const slugs = r.ok ? r.dados.map(({ slug }) => ({ slug })) : [];

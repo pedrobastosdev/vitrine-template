@@ -192,21 +192,21 @@ export default async function Home() {
           <p className="mx-auto mt-4 max-w-xl text-lg opacity-90">
             Conte o que você precisa e a gente responde pelo canal que você preferir.
           </p>
-          <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+          <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row sm:flex-wrap">
             {canais.map((acao, i) => (
               <LinkAcao
                 key={acao.tipo}
                 acao={acao}
                 className={
                   i === 0
-                    ? 'rounded-full bg-destaque px-7 py-4 font-semibold text-destaque-contraste shadow-lg transition hover:brightness-110'
-                    : 'rounded-full bg-white px-7 py-4 font-semibold text-foreground transition hover:bg-white/90'
+                    ? 'rounded-full bg-destaque px-7 py-4 font-semibold whitespace-nowrap text-destaque-contraste shadow-lg transition hover:brightness-110'
+                    : 'rounded-full bg-white px-7 py-4 font-semibold whitespace-nowrap text-foreground transition hover:bg-white/90'
                 }
               />
             ))}
             <Link
               href="/contato"
-              className="inline-flex items-center justify-center rounded-full px-7 py-4 font-semibold underline-offset-4 ring-1 ring-current/30 transition hover:ring-current/60"
+              className="inline-flex items-center justify-center rounded-full px-7 py-4 font-semibold whitespace-nowrap underline-offset-4 ring-1 ring-current/30 transition hover:ring-current/60"
             >
               Enviar mensagem
             </Link>
