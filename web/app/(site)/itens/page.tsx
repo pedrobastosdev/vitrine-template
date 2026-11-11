@@ -42,7 +42,7 @@ async function Listagem({ searchParams, rotulo }: { searchParams: PageProps<'/it
   return (
     <>
       {categorias.ok && categorias.dados.length > 0 && (
-        <nav aria-label="Filtrar por categoria" className="sem-barra -mx-4 flex gap-2 overflow-x-auto px-4 pb-2 sm:mx-0 sm:flex-wrap sm:px-0">
+        <nav aria-label="Filtrar por categoria" className="sem-barra -mx-4 flex gap-2 overflow-x-auto px-4 pb-2 max-sm:[mask-image:linear-gradient(to_right,black_85%,transparent)] sm:mx-0 sm:flex-wrap sm:px-0">
           {[{ id: 0, nome: 'Todos', slug: undefined as string | undefined }, ...categorias.dados].map((c) => {
             const ativa = c.slug === categoria;
             return (

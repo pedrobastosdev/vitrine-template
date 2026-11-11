@@ -22,8 +22,9 @@ const REGRAS: [RegExp, LucideIcon][] = [
   [/vaga|garagem/i, Car],
   [/área de atendimento|região|cobertura|rodovia/i, MapPinned],
   [/área|metragem|m²|tamanho/i, Ruler],
-  [/bairro|local|cidade|endereço/i, MapPin],
+  // Antes da regra de local: "capacidade" contém "cidade"
   [/capacidade|peso|tonelada/i, Weight],
+  [/bairro|local|\bcidade|endereço/i, MapPin],
   [/chegada|prazo|tempo/i, Timer],
   [/atendimento|horário|hora/i, Clock],
   [/frota|veículo|caminh/i, Truck],

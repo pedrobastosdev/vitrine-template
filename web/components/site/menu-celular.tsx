@@ -2,23 +2,36 @@
 
 import { Menu, X } from 'lucide-react';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { Acao } from '@/lib/contato';
 import { LinkAcao } from './acao-contato';
 
 export function MenuCelular({ links, canais }: { links: { href: string; rotulo: string }[]; canais: Acao[] }) {
   const [aberto, setAberto] = useState(false);
+  const raiz = useRef<HTMLDivElement>(null);
+  const botao = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (!aberto) return;
-    const fechar = (e: KeyboardEvent) => e.key === 'Escape' && setAberto(false);
+    const fechar = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape') return;
+      setAberto(false);
+      botao.current?.focus();
+    };
     window.addEventListener('keydown', fechar);
     return () => window.removeEventListener('keydown', fechar);
   }, [aberto]);
 
   return (
-    <div>
+    <div
+      ref={raiz}
+      // Fecha quando o foco do teclado sai do menu (Tab depois do último link)
+      onBlur={(e) => {
+        if (aberto && e.relatedTarget && !raiz.current?.contains(e.relatedTarget as Node)) setAberto(false);
+      }}
+    >
       <button
+        ref={botao}
         type="button"
         onClick={() => setAberto((a) => !a)}
         aria-expanded={aberto}
@@ -28,6 +41,11 @@ export function MenuCelular({ links, canais }: { links: { href: string; rotulo: 
       >
         {aberto ? <X className="size-6" /> : <Menu className="size-6" />}
       </button>
+      {aberto && (
+        // Fundo escurecido: um toque fora fecha o menu
+        // absolute, não fixed: o blur do cabeçalho vira o contêiner de elementos fixed
+        <div aria-hidden className="absolute inset-x-0 top-16 h-[calc(100dvh-4rem)] bg-black/30 animate-in fade-in" onClick={() => setAberto(false)} />
+      )}
       {aberto && (
         <nav
           id="menu-celular"

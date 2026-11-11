@@ -5,6 +5,7 @@ import { FormContato } from '@/components/site/form-contato';
 import { IconeAcao } from '@/components/site/acao-contato';
 import { Mapa } from '@/components/site/mapa';
 import { TituloPagina } from '@/components/site/titulo-pagina';
+import { MensagemWhatsApp } from '@/components/site/whatsapp-contexto';
 import { obterItem } from '@/lib/api-publica';
 import { canalPrincipal, linkTelefone } from '@/lib/contato';
 import { negocioOuPadrao } from '@/lib/negocio';
@@ -56,6 +57,8 @@ export default async function PaginaContato({ searchParams }: PageProps<'/contat
 
   return (
     <>
+      {/* Os canais já estão no topo; no celular o botão flutuante cobriria o "Enviar" */}
+      <MensagemWhatsApp mensagem={`Olá, ${negocio.nome}!`} barra />
       <TituloPagina titulo="Fale com a gente">{subtitulo}</TituloPagina>
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-10 sm:px-6 sm:py-12 lg:grid-cols-5 lg:px-8">
         <aside aria-label="Canais de contato" className="space-y-3 lg:col-span-2">

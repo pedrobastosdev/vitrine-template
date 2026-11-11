@@ -133,10 +133,10 @@ async function Detalhe({ params }: { params: PageProps<'/[slug]'>['params'] }) {
                 {item.atributos.map((a) => (
                   <div
                     key={a.id ?? a.nome}
-                    className={`relative min-h-18 rounded-2xl bg-white py-4 pr-4 pl-17 ring-1 ring-black/5 ${a.valor.length > 12 ? 'col-span-2' : ''}`}
+                    className={`relative min-h-18 rounded-2xl bg-white py-4 pr-3 pl-14 ring-1 ring-black/5 sm:pr-4 sm:pl-17 ${a.valor.length > 8 ? 'col-span-2' : ''}`}
                   >
                     <dt className="text-xs font-medium text-muted-foreground">
-                      <span aria-hidden className="absolute top-4 left-4 grid size-10 place-items-center rounded-xl bg-marca-suave text-marca-forte">
+                      <span aria-hidden className="absolute top-4 left-3 grid size-8 place-items-center rounded-lg bg-marca-suave text-marca-forte sm:left-4 sm:size-10 sm:rounded-xl">
                         <IconeAtributo nome={a.nome} className="size-5" />
                       </span>
                       {a.nome}
