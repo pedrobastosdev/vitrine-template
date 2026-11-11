@@ -114,10 +114,10 @@ export default async function PaginaItens({ searchParams }: PageProps<'/itens'>)
   const { negocio } = await negocioOuPadrao();
   return (
     <>
-      <TituloPagina sobre={negocio.nome} titulo={negocio.rotuloItens}>
+      <TituloPagina titulo={negocio.rotuloItens}>
         Fotos, detalhes e atendimento direto pelo WhatsApp.
       </TituloPagina>
-      <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 pt-6 pb-16 sm:px-6 sm:pt-10 lg:px-8">
         <Suspense fallback={<ListagemSkeleton />}>
           <Listagem searchParams={searchParams} rotulo={negocio.rotuloItens} />
         </Suspense>

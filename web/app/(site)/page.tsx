@@ -92,19 +92,6 @@ export default async function Home() {
                 Ver {negocio.rotuloItens.toLowerCase()} <ArrowRight className="size-4" aria-hidden />
               </Link>
             )}
-            {categorias.ok && categorias.dados.length > 0 && (
-              <nav aria-label="Categorias" className="mt-10 flex flex-wrap gap-2 animate-surgir [animation-delay:320ms]">
-                {categorias.dados.map((c) => (
-                  <Link
-                    key={c.id}
-                    href={`/itens?categoria=${c.slug}`}
-                    className="rounded-full bg-black/25 px-4 py-2 text-sm font-medium text-white ring-1 ring-white/20 backdrop-blur transition hover:bg-white hover:text-foreground"
-                  >
-                    {c.nome}
-                  </Link>
-                ))}
-              </nav>
-            )}
           </div>
         </div>
       </section>
@@ -131,11 +118,11 @@ export default async function Home() {
 
       {/* Categorias */}
       {categorias.ok && categorias.dados.length > 1 && (
-        <section aria-labelledby="categorias" className="mx-auto max-w-7xl px-4 pt-24 sm:px-6 lg:px-8">
-          <h2 id="categorias" className="font-heading text-3xl font-extrabold tracking-tight sm:text-4xl">
+        <section aria-labelledby="categorias" className="mx-auto max-w-7xl px-4 pt-16 sm:px-6 lg:px-8">
+          <h2 id="categorias" className="font-heading text-2xl font-extrabold tracking-tight sm:text-3xl">
             Explore por categoria
           </h2>
-          <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <ul className="mt-6 grid gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
             {categorias.dados.map((c) => (
               <li key={c.id}>
                 <Link
@@ -163,7 +150,7 @@ export default async function Home() {
         <section
           aria-labelledby={temSobre ? 'sobre' : undefined}
           aria-label={temSobre ? undefined : `Sobre ${negocio.nome}`}
-          className="mx-auto mt-24 max-w-7xl px-4 sm:px-6 lg:px-8"
+          className="mx-auto mt-28 max-w-7xl px-4 sm:mt-32 sm:px-6 lg:px-8"
         >
           <div
             className={`grid gap-12 rounded-3xl bg-white p-8 shadow-sm ring-1 ring-black/5 sm:p-12 ${temSobre && negocio.fatos.length ? 'lg:grid-cols-[1.15fr_1fr] lg:gap-16' : ''}`}

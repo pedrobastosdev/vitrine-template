@@ -147,11 +147,19 @@ async function Detalhe({ params }: { params: PageProps<'/[slug]'>['params'] }) {
               </dl>
             )}
 
+                {item.descricao && (
+              <section aria-labelledby="descricao-m" className="mt-10 lg:hidden">
+                <h2 id="descricao-m" className="font-heading text-2xl font-bold">Descrição</h2>
+                <p className="mt-4 text-lg leading-relaxed whitespace-pre-line text-foreground/80">{item.descricao}</p>
+              </section>
+            )}
+
             <div className="mt-8 flex flex-col gap-3 rounded-3xl bg-white p-5 shadow-sm ring-1 ring-black/5">
               {principal && (
                 <LinkAcao
                   acao={principal}
-                  className="rounded-full bg-marca px-6 py-4 text-base font-semibold text-marca-contraste shadow-md transition hover:brightness-110"
+                  // No celular a barra fixa já faz este papel
+                  className="rounded-full bg-marca px-6 py-4 text-base font-semibold text-marca-contraste shadow-md transition hover:brightness-110 max-lg:hidden"
                 >
                   {negocio.ctaItem}
                 </LinkAcao>
@@ -178,12 +186,6 @@ async function Detalhe({ params }: { params: PageProps<'/[slug]'>['params'] }) {
           </div>
         </div>
 
-        {item.descricao && (
-          <section aria-labelledby="descricao-m" className="lg:hidden">
-            <h2 id="descricao-m" className="font-heading text-2xl font-bold">Descrição</h2>
-            <p className="mt-4 text-lg leading-relaxed whitespace-pre-line text-foreground/80">{item.descricao}</p>
-          </section>
-        )}
       </div>
 
       <Relacionados item={item} />
